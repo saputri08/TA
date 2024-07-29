@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Http\Controllers\Guru;
+
+use App\Http\Controllers\Controller;
+use App\Models\Guru;
+use App\Models\Kelas;
+use App\Models\Mapel;
+use App\Models\Siswa;
+use Illuminate\Http\Request;
+
+class DashboardController extends Controller
+{
+    function index()
+    {
+        return view('guru.dashboard.index');
+    }
+}
