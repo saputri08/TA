@@ -10,19 +10,19 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ url('/') }}/admin-template/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{ url('public') }}/admin-template/plugins/fontawesome-free/css/all.min.css">
     <!-- DataTables -->
     <link rel="stylesheet"
-        href="{{ url('/') }}/admin-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+        href="{{ url('public') }}/admin-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet"
-        href="{{ url('/') }}/admin-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+        href="{{ url('public') }}/admin-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ url('/') }}/admin-template/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="{{ url('resources/css/output.css') }}">
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ url('/') }}/admin-template/plugins/select2/css/select2.min.css">
     <link rel="stylesheet"
-        href="{{ url('/') }}/admin-template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+        href="{{ url('public') }}/admin-template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- Bootstrap 4 CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -83,7 +83,7 @@
                     <tbody>
                         <tr>
                             <td style="width: 156px;" align="center"><img
-                                    src="{{ url('/') }}/admin-template/dist/img/kemenag.png" width="115"
+                                    src="{{ url('public') }}/admin-template/dist/img/kemenag.png" width="115"
                                     height="117"></td>
                             <td style="width: 642px;" align="center">
                                 <p class="m-0"
@@ -604,7 +604,7 @@
                                     <br>
                                     Kepala Madrasah
                                     <br>
-                                    <img src="{{ url($nilai_tambahan->qr_kepsek) }}" alt="QR Code"
+                                    <img src="{{ url('public/'.$nilai_tambahan->qr_kepsek) }}" alt="QR Code"
                                         style="width:50%; height:50%;" />
                                     <br>
                                     <b>{{ $kepsek->nama_kepsek }}</b>
@@ -628,18 +628,18 @@
     window.print();
 </script>
 <!-- jQuery -->
-<script src="{{ url('/') }}/admin-template/plugins/jquery/jquery.min.js"></script>
+<script src="{{ url('public') }}/admin-template/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="{{ url('/') }}/admin-template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url('public') }}/admin-template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- DataTables  & Plugins -->
-<script src="{{ url('/') }}/admin-template/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="{{ url('/') }}/admin-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="{{ url('/') }}/admin-template/plugins/datatables-responsive/js/dataTables.responsive.min.js">
+<script src="{{ url('public') }}/admin-template/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ url('public') }}/admin-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ url('public') }}/admin-template/plugins/datatables-responsive/js/dataTables.responsive.min.js">
 </script>
-<script src="{{ url('/') }}/admin-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js">
+<script src="{{ url('public') }}/admin-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js">
 </script>
 <!-- Select2 -->
-<script src="{{ url('/') }}/admin-template/plugins/select2/js/select2.full.min.js"></script>
+<script src="{{ url('public') }}/admin-template/plugins/select2/js/select2.full.min.js"></script>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
@@ -652,4 +652,4 @@
 
 
 <!-- AdminLTE App -->
-<script src="{{ url('/') }}/admin-template/dist/js/adminlte.min.js"></script>
+<script src="{{ url('public') }}/admin-template/dist/js/adminlte.min.js"></script>

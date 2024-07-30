@@ -1,5 +1,5 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color: rgb(254, 250, 250)">
-    
+
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -13,34 +13,42 @@
             <div class="pointer" data-toggle="dropdown">
                 <div class="pull-left p-r-10 fs-14 font-heading d-lg-block d-none">
                     <span class="semi-bold" style="font-weight: 500 ;">
-                        @if(Auth::guard('admin')->check())
-                        Hallo, {{ Auth::guard('admin')->user()->nama }}
-                        @if (Auth::guard('admin')->user()->foto)
-                        <img src="{{ url('/'.Auth::guard('admin')->user()->foto) }}" alt="User Image" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
-                        @else
-                        <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
-                        @endif
+                        @if (Auth::guard('admin')->check())
+                            Hallo, {{ Auth::guard('admin')->user()->nama }}
+                            @if (Auth::guard('admin')->user()->foto)
+                                <img src="{{ url('public') }}/{{ Auth::guard('admin')->user()->foto }}" alt="User Image"
+                                    style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
+                            @else
+                                <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar"
+                                    style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
+                            @endif
                         @elseif(Auth::guard('siswa')->check())
-                        Hallo, {{ Auth::guard('siswa')->user()->nama }}
-                        @if (Auth::guard('siswa')->user()->foto)
-                        <img src="{{ url('/'.Auth::guard('siswa')->user()->foto) }}" alt="User Image" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
-                        @else
-                        <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
-                        @endif
+                            Hallo, {{ Auth::guard('siswa')->user()->nama }}
+                            @if (Auth::guard('siswa')->user()->foto)
+                                <img src="{{ url('public')}}/{{ Auth::guard('siswa')->user()->foto }}" alt="User Image"
+                                    style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
+                            @else
+                                <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar"
+                                    style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
+                            @endif
                         @elseif(Auth::guard('guru')->check())
-                        Hallo, {{ Auth::guard('guru')->user()->nama_guru }}
-                        @if (Auth::guard('guru')->user()->foto)
-                        <img src="{{ url('/'.Auth::guard('guru')->user()->foto) }}" alt="User Image" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
-                        @else
-                        <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
-                        @endif
+                            Hallo, {{ Auth::guard('guru')->user()->nama_guru }}
+                            @if (Auth::guard('guru')->user()->foto)
+                                <img src="{{ url('public')}}/{{ Auth::guard('guru')->user()->foto }}" alt="User Image"
+                                    style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
+                            @else
+                                <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar"
+                                    style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
+                            @endif
                         @elseif(Auth::guard('kepsek')->check())
-                        Hallo, {{ Auth::guard('kepsek')->user()->nama_kepsek }}
-                        @if (Auth::guard('kepsek')->user()->foto)
-                        <img src="{{ url('/'.Auth::guard('kepsek')->user()->foto) }}" alt="User Image" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
-                        @else
-                        <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
-                        @endif
+                            Hallo, {{ Auth::guard('kepsek')->user()->nama_kepsek }}
+                            @if (Auth::guard('kepsek')->user()->foto)
+                                <img src="{{ url('public') }}/{{ Auth::guard('kepsek')->user()->foto }}" alt="User Image"
+                                    style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
+                            @else
+                                <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar"
+                                    style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
+                            @endif
                         @endif
                     </span>
                 </div>
@@ -50,57 +58,57 @@
                     <div class="">
                         <p class="dropdown-header font-weight-bold">
                             @if (Auth::guard('admin')->check())
-                            {{ Auth::guard('admin')->user()->nama }}
+                                {{ Auth::guard('admin')->user()->nama }}
                             @elseif (Auth::guard('siswa')->check())
-                            {{ Auth::guard('siswa')->user()->nama }}
+                                {{ Auth::guard('siswa')->user()->nama }}
                             @elseif (Auth::guard('guru')->check())
-                            {{ Auth::guard('guru')->user()->nama_guru }}
+                                {{ Auth::guard('guru')->user()->nama_guru }}
                             @elseif (Auth::guard('kepsek')->check())
-                            {{ Auth::guard('kepsek')->user()->nama_kepsek }}
+                                {{ Auth::guard('kepsek')->user()->nama_kepsek }}
                             @endif
                         </p>
                     </div>
                 </div>
                 @if (Auth::guard('admin')->check())
-                <a href="{{ url('admin/profile') }}" class="dropdown-item d-block p-h-15">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <i class="fas fa-user"></i>
-                            <span class="m-l-10">Profile</span>
+                    <a href="{{ url('admin/profile') }}" class="dropdown-item d-block p-h-15">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <i class="fas fa-user"></i>
+                                <span class="m-l-10">Profile</span>
+                            </div>
+                            <i class="anticon font-size-10 anticon-right"></i>
                         </div>
-                        <i class="anticon font-size-10 anticon-right"></i>
-                    </div>
-                </a>
+                    </a>
                 @elseif (Auth::guard('siswa')->check())
-                <a href="{{ url('siswa/profile') }}" class="dropdown-item d-block p-h-15">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <i class="fas fa-user"></i>
-                            <span class="m-l-10">Profile</span>
+                    <a href="{{ url('siswa/profile') }}" class="dropdown-item d-block p-h-15">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <i class="fas fa-user"></i>
+                                <span class="m-l-10">Profile</span>
+                            </div>
+                            <i class="anticon font-size-10 anticon-right"></i>
                         </div>
-                        <i class="anticon font-size-10 anticon-right"></i>
-                    </div>
-                </a>
+                    </a>
                 @elseif (Auth::guard('guru')->check())
-                <a href="{{ url('guru/profile') }}" class="dropdown-item d-block p-h-15">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <i class="fas fa-user"></i>
-                            <span class="m-l-10">Profile</span>
+                    <a href="{{ url('guru/profile') }}" class="dropdown-item d-block p-h-15">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <i class="fas fa-user"></i>
+                                <span class="m-l-10">Profile</span>
+                            </div>
+                            <i class="anticon font-size-10 anticon-right"></i>
                         </div>
-                        <i class="anticon font-size-10 anticon-right"></i>
-                    </div>
-                </a>
+                    </a>
                 @elseif (Auth::guard('kepsek')->check())
-                <a href="{{ url('kepsek/profile') }}" class="dropdown-item d-block p-h-15">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <i class="fas fa-user"></i>
-                            <span class="m-l-10">Profile</span>
+                    <a href="{{ url('kepsek/profile') }}" class="dropdown-item d-block p-h-15">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <i class="fas fa-user"></i>
+                                <span class="m-l-10">Profile</span>
+                            </div>
+                            <i class="anticon font-size-10 anticon-right"></i>
                         </div>
-                        <i class="anticon font-size-10 anticon-right"></i>
-                    </div>
-                </a>
+                    </a>
                 @endif
                 <a href="{{ url('logout') }}" class="dropdown-item d-block p-h-15">
                     <div class="d-flex align-items-center justify-content-between">

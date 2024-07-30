@@ -40,7 +40,7 @@ class AuthController extends Controller
             return redirect('kepsek/dashboard')->with('success', 'Login Berhasil');
         }
 
-        return redirect()->back()->withErrors(['message' => 'Login Gagal, email/NIS/NIP atau password salah.']);
+        return redirect()->back()->with('danger', 'Login Gagal, email/NIS/NIP atau password salah.');
     }
 
 

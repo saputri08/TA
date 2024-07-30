@@ -24,7 +24,7 @@
                     @if(Auth::guard('siswa')->check())
                     <span style="color: white;">Hallo, {{ Auth::guard('siswa')->user()->nama }}</span>
                     @if (Auth::guard('siswa')->user()->foto)
-                    <img src="{{ url('public'.Auth::guard('siswa')->user()->foto) }}" alt="User Image" style="width: 42px; height: 42px; padding: 8px; margin: 0;border-radius: 50%;">
+                    <img src="{{ url('public') }}/{{ Auth::guard('siswa')->user()->foto }}" alt="User Image" style="width: 42px; height: 42px; padding: 8px; margin: 0;border-radius: 50%;">
                     @else
                     <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" class="img-circle" style="width: 42px; height: 42px; padding: 8px; margin: 0;">
                     @endif

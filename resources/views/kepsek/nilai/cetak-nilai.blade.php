@@ -10,19 +10,19 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ url('/') }}/admin-template/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{ url('public') }}/admin-template/plugins/fontawesome-free/css/all.min.css">
     <!-- DataTables -->
     <link rel="stylesheet"
-        href="{{ url('/') }}/admin-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+        href="{{ url('public') }}/admin-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet"
-        href="{{ url('/') }}/admin-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+        href="{{ url('public') }}/admin-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ url('/') }}/admin-template/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="{{ url('resources/css/output.css') }}">
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ url('/') }}/admin-template/plugins/select2/css/select2.min.css">
     <link rel="stylesheet"
-        href="{{ url('/') }}/admin-template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+        href="{{ url('public') }}/admin-template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- Bootstrap 4 CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -83,7 +83,7 @@
                     <tbody>
                         <tr>
                             <td style="width: 156px;" align="center"><img
-                                    src="{{ url('/') }}/admin-template/dist/img/kemenag.png" width="115"
+                                    src="{{ url('public') }}/admin-template/dist/img/kemenag.png" width="115"
                                     height="117"></td>
                             <td style="width: 642px;" align="center">
                                 <p class="m-0"
@@ -159,14 +159,10 @@
                                     Deskripsi</th>
                             </tr>
                             <tr style="border: 2px solid black; padding: 5px;">
-                                <td class="text-center"  style="border: 2px solid black; padding: 5px;">
+                                <td class="text-center" style="border: 2px solid black; padding: 5px;">
                                     {{ $nilai_tambahan->spiritual_sikap }}</td>
-                                  
                                 <td style="border: 2px solid black; padding: 5px;">
                                     {{ $nilai_tambahan->spiritual_sikap_keterangan }}</td>
-                                    @error('spiritual_sikap_keterangan')
-                                    <p class="text-danger" style="font-size: 12px">* {{ $message }}</p>
-                                    @enderror
                             </tr>
                         </tbody>
                     </table>
@@ -195,7 +191,7 @@
                     <h5 class="m-2 font-weight-bold" style="font-size: 17px ; text-align: left;">Kriteria Ketuntasan Minimal
                         = 78 (x)</h5>
                     <table class="table table-bordered" style="border: 2px solid black; padding: 5px;">
-                        <tbody style="border: 2px solid black; padding: 5px;">
+                        <thead style="border: 2px solid black; padding: 5px;">
                             <tr style="border: 2px solid black; padding: 5px;">
                                 <th style="border: 2px solid black; padding: 5px;" colspan="2" class="text-center">
                                     Aspek Penilaian</th>
@@ -213,6 +209,8 @@
                                 <th style="border: 2px solid black; padding: 5px;" class="text-center">Nilai</th>
                                 <th style="border: 2px solid black; padding: 5px;" class="text-center">Predikat</th>
                             </tr>
+                        </thead>
+                        <tbody style="border: 2px solid black; padding: 5px;">
                             <tr>
                                 <th colspan="7">Kelompok A</th>
                             </tr>
@@ -398,71 +396,22 @@
                                 <th style="border: 2px solid black; padding: 5px; vertical-align: middle; text-align: center;"
                                     class="text-center">Keterampilan (Kl 4)</th>
                             </tr>
-                            <tr>
-                                <th colspan="7">Kelompok A</th>
-                            </tr>
                             @php
                                 $no = 1;
                             @endphp
                             @foreach ($nilai as $item)
-                                @if ($item->mapel->kelompok == 'A')
-                                    <tr>
-                                        <th style="border: 2px solid black; padding: 5px; vertical-align: middle; text-align: center;"
-                                            class="text-center">{{ $no++ }}.</th>
-                                        <td style="border: 2px solid black; padding: 5px; vertical-align: middle;">
-                                            {{ $item->mapel->nama_mapel }}</td>
-                                        <td style="border: 2px solid black; padding: 5px; vertical-align: middle;">
-                                            {{ $item->keterangan_pengetahuan }}
-                                        </td>
-                                        <td style="border: 2px solid black; padding: 5px; vertical-align: middle;">
-                                            {{ $item->keterangan_keterampilan }}
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            <tr>
-                                <th colspan="7">Kelompok B</th>
-                            </tr>
-                            @php
-                                $no = 1;
-                            @endphp
-                            @foreach ($nilai as $item)
-                                @if ($item->mapel->kelompok == 'B')
-                                    <tr>
-                                        <th style="border: 2px solid black; padding: 5px; vertical-align: middle; text-align: center;"
-                                            class="text-center">{{ $no++ }}.</th>
-                                        <td style="border: 2px solid black; padding: 5px; vertical-align: middle;">
-                                            {{ $item->mapel->nama_mapel }}</td>
-                                        <td style="border: 2px solid black; padding: 5px; vertical-align: middle;">
-                                            {{ $item->keterangan_pengetahuan }}
-                                        </td>
-                                        <td style="border: 2px solid black; padding: 5px; vertical-align: middle;">
-                                            {{ $item->keterangan_keterampilan }}
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            <tr>
-                                <th colspan="7">Kelompok C</th>
-                            </tr>
-                            @php
-                                $no = 1;
-                            @endphp
-                            @foreach ($nilai as $item)
-                                @if ($item->mapel->kelompok == 'C')
-                                    <tr>
-                                        <th style="border: 2px solid black; padding: 5px; vertical-align: middle; text-align: center;"
-                                            class="text-center">{{ $no++ }}.</th>
-                                        <td style="border: 2px solid black; padding: 5px; vertical-align: middle;">
-                                            {{ $item->mapel->nama_mapel }}</td>
-                                        <td style="border: 2px solid black; padding: 5px; vertical-align: middle;">
-                                            {{ $item->keterangan_pengetahuan }}
-                                        </td>
-                                        <td style="border: 2px solid black; padding: 5px; vertical-align: middle;">
-                                            {{ $item->keterangan_keterampilan }}
-                                        </td>
-                                    </tr>
-                                @endif
+                                <tr>
+                                    <th style="border: 2px solid black; padding: 5px; vertical-align: middle; text-align: center;"
+                                        class="text-center">{{ $no++ }}.</th>
+                                    <td style="border: 2px solid black; padding: 5px; vertical-align: middle;">
+                                        {{ $item->mapel->nama_mapel }}</td>
+                                    <td style="border: 2px solid black; padding: 5px; vertical-align: middle;">
+                                        {{ $item->keterangan_pengetahuan }}
+                                    </td>
+                                    <td style="border: 2px solid black; padding: 5px; vertical-align: middle;">
+                                        {{ $item->keterangan_keterampilan }}
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -604,8 +553,7 @@
                             <tbody>
                                 <tr>
                                     <td style="border: 2px solid black; vertical-align: middle;">KETERANGAN LULUS:
-                                        <strong>{{ $nilai_tambahan->keterangan_lulus }}</strong></span>
-                                    </td>
+                                        <strong>{{ $nilai_tambahan->keterangan_lulus }}</strong></span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -656,7 +604,7 @@
                                     <br>
                                     Kepala Madrasah
                                     <br>
-                                    <img src="{{ url($nilai_tambahan->qr_kepsek) }}" alt="QR Code"
+                                    <img src="{{ url('public/'.$nilai_tambahan->qr_kepsek) }}" alt="QR Code"
                                         style="width:50%; height:50%;" />
                                     <br>
                                     <b>{{ $kepsek->nama_kepsek }}</b>
@@ -680,18 +628,18 @@
     window.print();
 </script>
 <!-- jQuery -->
-<script src="{{ url('/') }}/admin-template/plugins/jquery/jquery.min.js"></script>
+<script src="{{ url('public') }}/admin-template/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="{{ url('/') }}/admin-template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url('public') }}/admin-template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- DataTables  & Plugins -->
-<script src="{{ url('/') }}/admin-template/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="{{ url('/') }}/admin-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="{{ url('/') }}/admin-template/plugins/datatables-responsive/js/dataTables.responsive.min.js">
+<script src="{{ url('public') }}/admin-template/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ url('public') }}/admin-template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ url('public') }}/admin-template/plugins/datatables-responsive/js/dataTables.responsive.min.js">
 </script>
-<script src="{{ url('/') }}/admin-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js">
+<script src="{{ url('public') }}/admin-template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js">
 </script>
 <!-- Select2 -->
-<script src="{{ url('/') }}/admin-template/plugins/select2/js/select2.full.min.js"></script>
+<script src="{{ url('public') }}/admin-template/plugins/select2/js/select2.full.min.js"></script>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
@@ -704,4 +652,4 @@
 
 
 <!-- AdminLTE App -->
-<script src="{{ url('/') }}/admin-template/dist/js/adminlte.min.js"></script>
+<script src="{{ url('public') }}/admin-template/dist/js/adminlte.min.js"></script>

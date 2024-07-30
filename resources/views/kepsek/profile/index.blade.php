@@ -6,9 +6,9 @@
             <div class="card">
                 <div class="card-body position-relative">
                     @if ($user->foto)
-                    <img src="{{ url($user->foto) }}" class="img-fluid" alt="">
+                    <img src="{{ url('public')}}/{{ ($user->foto) }}" class="img-fluid" alt="">
                     @else
-                    <img src="{{ url('/') }}/admin-template/dist/img/profile.jpg" class="img-fluid" alt="">
+                    <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" class="img-fluid" alt="">
                     @endif
                 </div>
             </div>
