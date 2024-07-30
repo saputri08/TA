@@ -67,12 +67,6 @@
                         <p class="text uppercase">Data Nilai</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ url('admin/ob') }}" class="nav-link {{request()->is('admin/ob') ? 'active' : ''}}"">
-                        <i class=" nav-icon fas fa-clipboard-list text-sm text-green-500"></i>
-                        <p class="text uppercase">Data Ob</p>
-                    </a>
-                </li>
                 @elseif (Auth::guard('siswa')->check())
                 <li class="nav-item">
                     <a href="{{ url('siswa/dashboard') }}" class="nav-link {{request()->is('siswa/dashboard') ? 'active' : ''}}">
