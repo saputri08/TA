@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-light elevation-4" style="background-color: rgb(71, 117, 77)">
     <!-- Brand Logo -->
     <a href="{{ url('admin/dashboard') }}" class="brand-link">
-        <img src="{{ url('/') }}/admin-template/dist/img/kemenag.png" alt="Logo" class="brand-image img-circle" style="opacity: .8">
+        <img src="{{ url('public') }}/admin-template/dist/img/kemenag.png" alt="Logo" class="brand-image img-circle" style="opacity: .8">
         <span class="brand-text font-weight-bold">MAN 2 KETAPANG</span>
     </a>
 

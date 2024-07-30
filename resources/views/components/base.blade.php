@@ -9,8 +9,8 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link rel="shortcut icon" href="{{ url('/') }}/admin-template/dist/img/kemenag.png">
-    <link href="{{ url('/') }}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link rel="shortcut icon" href="{{ url('public') }}/admin-template/dist/img/kemenag.png">
+    <link href="{{ url('public') }}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -18,19 +18,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="{{ url('/') }}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ url('/') }}/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="{{ url('/') }}/assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="{{ url('/') }}/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="{{ url('/') }}/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="{{ url('public') }}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url('public') }}/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="{{ url('public') }}/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="{{ url('public') }}/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="{{ url('public') }}/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ url('/') }}/admin-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ url('/') }}/admin-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ url('/') }}/admin-template/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ url('public') }}/admin-template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ url('public') }}/admin-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ url('public') }}/admin-template/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
     <!-- Main CSS File -->
-    <link href="{{ url('/') }}/assets/css/main.css" rel="stylesheet">
+    <link href="{{ url('public') }}/assets/css/main.css" rel="stylesheet">
 
     <style>
         /* #footer .container {
@@ -117,16 +117,16 @@
     <div id="preloader"></div>
 
     <!-- Vendor JS Files -->
-    <script src="{{ url('/') }}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ url('/') }}/assets/vendor/php-email-form/validate.js"></script>
-    <script src="{{ url('/') }}/assets/vendor/aos/aos.js"></script>
-    <script src="{{ url('/') }}/assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="{{ url('/') }}/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="{{ url('/') }}/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="{{ url('public') }}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url('public') }}/assets/vendor/php-email-form/validate.js"></script>
+    <script src="{{ url('public') }}/assets/vendor/aos/aos.js"></script>
+    <script src="{{ url('public') }}/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="{{ url('public') }}/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="{{ url('public') }}/assets/vendor/swiper/swiper-bundle.min.js"></script>
 
 
     <!-- Main JS File -->
-    <script src="{{ url('/') }}/assets/js/main.js"></script>
+    <script src="{{ url('public') }}/assets/js/main.js"></script>
 
 </body>
 

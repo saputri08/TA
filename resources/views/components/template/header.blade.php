@@ -18,28 +18,28 @@
                         @if (Auth::guard('admin')->user()->foto)
                         <img src="{{ url('/'.Auth::guard('admin')->user()->foto) }}" alt="User Image" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
                         @else
-                        <img src="{{ url('/') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
+                        <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
                         @endif
                         @elseif(Auth::guard('siswa')->check())
                         Hallo, {{ Auth::guard('siswa')->user()->nama }}
                         @if (Auth::guard('siswa')->user()->foto)
                         <img src="{{ url('/'.Auth::guard('siswa')->user()->foto) }}" alt="User Image" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
                         @else
-                        <img src="{{ url('/') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
+                        <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
                         @endif
                         @elseif(Auth::guard('guru')->check())
                         Hallo, {{ Auth::guard('guru')->user()->nama_guru }}
                         @if (Auth::guard('guru')->user()->foto)
                         <img src="{{ url('/'.Auth::guard('guru')->user()->foto) }}" alt="User Image" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
                         @else
-                        <img src="{{ url('/') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
+                        <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
                         @endif
                         @elseif(Auth::guard('kepsek')->check())
                         Hallo, {{ Auth::guard('kepsek')->user()->nama_kepsek }}
                         @if (Auth::guard('kepsek')->user()->foto)
                         <img src="{{ url('/'.Auth::guard('kepsek')->user()->foto) }}" alt="User Image" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
                         @else
-                        <img src="{{ url('/') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
+                        <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" alt="User Avatar" style="width: 42px;height: 42px; padding: 8px; margin: 0px;" class="img-circle">
                         @endif
                         @endif
                     </span>

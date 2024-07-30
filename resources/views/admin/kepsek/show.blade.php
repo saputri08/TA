@@ -7,9 +7,9 @@
             <div class="card">
                 <div class="card-body">
                     @if ($kepsek->foto)
-                    <img src="{{ url($kepsek->foto) }}" class="img-fluid" alt="">
+                    <img src="{{ url('public/'.$kepsek->foto) }}" class="img-fluid" alt="">
                     @else
-                    <img src="{{ url('/') }}/admin-template/dist/img/profile.jpg" class="img-fluid" alt="">
+                    <img src="{{ url('public') }}/admin-template/dist/img/profile.jpg" class="img-fluid" alt="">
                     @endif
                 </div>
             </div>
