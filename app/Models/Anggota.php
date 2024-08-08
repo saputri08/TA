@@ -25,4 +25,9 @@ class Anggota extends ModelAuthenticate
     {
         return $this->belongsTo(Siswa::class, 'id_siswa');
     }
+
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'id_guru');
+    }
 }

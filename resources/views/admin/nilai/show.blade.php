@@ -1,5 +1,6 @@
 <x-app>
-    <h5 class="m-0 font-weight-bold text-dark" style="text-align: center; font-size: 25px"> DATA NILAI {{ $kelas->kelas->nama_kelas }}</h5>
+    <h5 class="m-0 font-weight-bold text-dark" style="text-align: center; font-size: 25px"> DATA NILAI
+        {{ $kelas->kelas->nama_kelas }}</h5>
     <hr>
     <x-template.button.back-button url="admin/nilai" />
     <div class="card">
@@ -15,20 +16,27 @@
                         </thead>
                         <tbody>
                             @foreach ($list_anggota as $anggota)
-                            <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <a href="{{ url("admin/nilai/$anggota->id") }}/nilai" class="btn btn-primary"><span class="fa fa-plus"></span> Tambah Nilai</a>
-                                        <a href="{{ url('admin/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas) }}/detail" class="btn btn-dark"><span class="fa fa-info"></span> Detail Nilai</a>
-                                        <a href="{{ url('admin/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas . '/edit') }}" class="btn btn-warning"><i class="fa fa-edit"></i> Edit</a>
-                                        <a href="{{ url('admin/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas) }}" class="btn btn-success" target="_blank"><i class="fa fa-print"></i> Cetak Data</a>
-                                    </div>
-                                </td>
-                                <td class="text-center">{{ $anggota->siswa->nis }}</td>
-                                <td class="text-center">{{ $anggota->siswa->nama }}</td>
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <a href="{{ url('admin/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas . '/edit') }}"
+                                                class="btn btn-primary"><span class="fa fa-plus"></span> Tambah
+                                                Nilai</a>
+                                            {{-- <a href="{{ url("admin/nilai/$anggota->id") }}/nilai" class="btn btn-primary"><span class="fa fa-plus"></span> Tambah Nilai</a> --}}
+                                            <a href="{{ url('admin/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas) }}/detail"
+                                                class="btn btn-dark"><span class="fa fa-info"></span> Detail Nilai</a>
+                                            <a href="{{ url('admin/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas . '/edit') }}"
+                                                class="btn btn-warning"><i class="fa fa-edit"></i> Edit</a>
+                                            <a href="{{ url('admin/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas) }}"
+                                                class="btn btn-success" target="_blank"><i class="fa fa-print"></i>
+                                                Cetak Data</a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">{{ $anggota->siswa->nis }}</td>
+                                    <td class="text-center">{{ $anggota->siswa->nama }}</td>
 
-                            </tr>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

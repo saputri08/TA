@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
                         <div class="form-group">
                             <label for="" class="control-label mt-3">Kelas</label>
                             <select name="id_kelas" id="" class="form-control mb-3">
@@ -35,8 +35,8 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
-                    <div class="col-md-4">
+                    </div> --}}
+                    <div class="col-md-6">
                         <label for="" class="control-label mt-3">Tanggal Lahir</label>
                         <input type="date" name="tgl_lahir" class="form-control mb-3"
                             placeholder="Masukan Tanggal Lahir">
@@ -44,7 +44,7 @@
                             <p class="text-danger" style="font-size: 12px">* {{ $message }}</p style="font-size: 12px">
                         @enderror
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="" class="control-label mt-3">Jenis Kelamin</label>
                             @if ($errors->has('jk_guru'))

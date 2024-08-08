@@ -21,6 +21,8 @@
                             :
                             {{ $anggota->Kelas->TahunAjar->tahun_mulai }}/{{ $anggota->Kelas->TahunAjar->tahun_selesai }}
                         </dd>
+                        <dt class="col-4">WALI KELAS</dt>
+                        <dd class="col-8">: {{ $anggota->guru->nama_guru }}</dd>
                     </dl>
                 </div>
             </div>

@@ -66,6 +66,18 @@
                                             <p class="text-danger" style="font-size: 12px">* {{ $message }}</p
                                                 style="font-size: 12px">
                                         @enderror
+                                        <br>
+                                        <label for="" class="control-label">PILIH WALI KELAS</label>
+                                        <select name="id_guru" class="form-control">
+                                            <option value=""> Silahkan Pilih Wali Kelas</option>
+                                            @foreach ($list_guru as $guru)
+                                                <option value="{{ $guru->id }}">{{ $guru->nama_guru }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_guru')
+                                            <p class="text-danger" style="font-size: 12px">* {{ $message }}</p
+                                                style="font-size: 12px">
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="modal-footer justify-content-center">
@@ -99,6 +111,17 @@
                         @endforeach
                     </select>
                     @error('id_kelas')
+                        <p class="text-danger" style="font-size: 12px">* {{ $message }}</p style="font-size: 12px">
+                    @enderror
+                    <br>
+                    <label for="" class="control-label">PILIH WALI KELAS</label>
+                    <select name="id_guru" class="form-control">
+                        <option value=""> Silahkan Pilih Wali Kelas</option>
+                        @foreach ($list_guru as $guru)
+                            <option value="{{ $guru->id }}">{{ $guru->nama_guru }}</option>
+                        @endforeach
+                    </select>
+                    @error('id_guru')
                         <p class="text-danger" style="font-size: 12px">* {{ $message }}</p style="font-size: 12px">
                     @enderror
                 </div>

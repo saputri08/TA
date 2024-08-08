@@ -40,369 +40,381 @@
                                     style="font-size: 15px; display: block; margin-left: auto; margin-right: auto;">Data
                                     Nilai Belum di Input</h6>
                             @else
-                                <input type="hidden" name="id_anggota" value="{{ $nilai_tambahan->id_anggota }}"
-                                    id="">
-                                <input type="hidden" name="id_kelas" value="{{ $kelas->id }}" id="">
-                                <!-- SIKAP -->
-                                @if (Auth::guard('guru')->user()->id_kelas == $kelas->id)
-                                    <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">A. SIKAP</h5>
-                                    <hr>
-                                    <h5 class="m-2 font-weight-bold text-dark" style="font-size: 17px">1. SIKAP SPIRITUAL
-                                    </h5>
-                                    <table class="table table-bordered table-striped">
-                                        <tbody>
-                                            <tr>
-                                                <th class="text-center">PREDIKAT</th>
-                                                <th class="text-center">KETERANGAN</th>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">
-                                                    <select name="spiritual_sikap" class="form-control" id="">
-                                                        <option value="{{ $nilai_tambahan->spiritual_sikap }}">
-                                                            {{ $nilai_tambahan->spiritual_sikap }}</option>
-                                                        <option value="SANGAT BAIK">SANGAT BAIK</option>
-                                                        <option value="BAIK">BAIK</option>
-                                                        <option value="CUKUP">CUKUP</option>
-                                                        <option value="BURUK">BURUK</option>
-                                                        <option value="SANGAT BURUK">SANGAT BURUK</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control"
-                                                        name="spiritual_sikap_keterangan"
-                                                        value="{{ $nilai_tambahan->spiritual_sikap_keterangan }}">
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <br>
-                                    <h5 class="m-2 font-weight-bold text-dark" style="font-size: 17px">2. SIKAP SOSIAL</h5>
-                                    <table class="table table-bordered table-striped">
-                                        <tbody>
-                                            <tr>
-                                                <th class="text-center">PREDIKAT</th>
-                                                <th class="text-center">KETERANGAN</th>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">
-                                                    <select name="sosial_sikap" class="form-control" id="">
-                                                        <option value="{{ $nilai_tambahan->sosial_sikap }}">
-                                                            {{ $nilai_tambahan->sosial_sikap }}</option>
-                                                        <option value="SANGAT BAIK">SANGAT BAIK</option>
-                                                        <option value="BAIK">BAIK</option>
-                                                        <option value="CUKUP">CUKUP</option>
-                                                        <option value="BURUK">BURUK</option>
-                                                        <option value="SANGAT BURUK">SANGAT BURUK</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control"
-                                                        name="sosial_sikap_keterangan"
-                                                        value="{{ $nilai_tambahan->sosial_sikap_keterangan }}">
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                @endif
-                                <!-- END SIKAP -->
-                                <!-- PENGETAHUAN DAN KETERAMPILAN -->
-                                <hr>
-                                <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">B. PENGETAHUAN DAN
-                                    KETERAMPILAN</h5>
-                                <hr>
-                                <table class="table table-bordered table-striped">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2" class="text-center">ASPEK PENILAIAN</th>
-                                            <th colspan="3" class="text-center">PENGETAHUAN (KI 3)</th>
-                                            <th colspan="2" class="text-center">KETERAMPILAN (KI 4)</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center">NO</th>
-                                            <th class="text-center">MATA PELAJARAN</th>
-                                            <th class="text-center">NILAI</th>
-                                            <th class="text-center">KKM</th>
-                                            <th class="text-center">PREDIKAT</th>
-                                            <th class="text-center">NILAI</th>
-                                            <th class="text-center">PREDIKAT</th>
-                                        </tr>
-                                        @php
-                                            $no = 1;
-                                        @endphp
-                                        @foreach ($nilai as $item)
-                                            @if ($item->mapel->id_guru == Auth::guard('guru')->user()->id)
+                                @foreach ($anggota as $member)
+                                    <input type="hidden" name="id_anggota" value="{{ $nilai_tambahan->id_anggota }}"
+                                        id="">
+                                    <input type="hidden" name="id_kelas" value="{{ $kelas->id }}" id="">
+                                    <!-- SIKAP -->
+                                    @if (Auth::guard('guru')->user()->id == $member->id_guru)
+                                        <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">A. SIKAP</h5>
+                                        <hr>
+                                        <h5 class="m-2 font-weight-bold text-dark" style="font-size: 17px">1. SIKAP
+                                            SPIRITUAL
+                                        </h5>
+                                        <table class="table table-bordered table-striped">
+                                            <tbody>
                                                 <tr>
-                                                    <th class="text-center">{{ $no++ }}</th>
-                                                    <td>{{ $item->mapel->nama_mapel }}</td>
-                                                    <td>
-                                                        <input type="text"
-                                                            class="form-control text-center nilai-pengetahuan"
-                                                            name="nilai_pengetahuan[{{ $item->id }}]"
-                                                            value="{{ $item->nilai_pengetahuan }}">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text"
-                                                            class="form-control text-center kkm-pengetahuan"
-                                                            name="kkm_pengetahuan[{{ $item->id }}]" value="78"
-                                                            readonly>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text"
-                                                            class="form-control text-center predikat-pengetahuan"
-                                                            name="predikat_pengetahuan[{{ $item->id }}]"
-                                                            value="{{ $item->predikat_pengetahuan }}" readonly>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text"
-                                                            class="form-control text-center nilai-keterampilan"
-                                                            name="nilai_keterampilan[{{ $item->id }}]"
-                                                            value="{{ $item->nilai_keterampilan }}">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text"
-                                                            class="form-control text-center predikat-keterampilan"
-                                                            name="predikat_keterampilan[{{ $item->id }}]"
-                                                            value="{{ $item->predikat_keterampilan }}" readonly>
-                                                    </td>
+                                                    <th class="text-center">PREDIKAT</th>
+                                                    <th class="text-center">KETERANGAN</th>
                                                 </tr>
-                                            @endif
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <table class="col-md-6 mt-4 table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2" style="vertical-align: middle; text-align: center;">KKM
-                                            </th>
-                                            <th colspan="4" style="vertical-align: middle; text-align: center;">
-                                                Predikat</th>
-                                        </tr>
-                                        <tr>
-                                            <th style="vertical-align: middle; text-align: center;">D</th>
-                                            <th style="vertical-align: middle; text-align: center;">C</th>
-                                            <th style="vertical-align: middle; text-align: center;">B</th>
-                                            <th style="vertical-align: middle; text-align: center;">A</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td style="vertical-align: middle; text-align: center;">78</td> <!-- KKM -->
-                                            <td style="vertical-align: middle; text-align: center;">0 - 77</td>
-                                            <!-- Predikat D -->
-                                            <td style="vertical-align: middle; text-align: center;">78 - 84</td>
-                                            <!-- Predikat C -->
-                                            <td style="vertical-align: middle; text-align: center;">85 - 92</td>
-                                            <!-- Predikat B -->
-                                            <td style="vertical-align: middle; text-align: center;">93 - 100</td>
-                                            <!-- Predikat A -->
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- END PENGETAHUAN DAN KETERAMPILAN -->
-                                <!-- DESKRIPSI PENGETAHUAN DAN KETERAMPILAN -->
-                                <hr>
-                                <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">DESKRIPSI PENGETAHUAN
-                                    DAN KETERAMPILAN</h5>
-                                <hr>
-                                <table class="table table-bordered table-striped">
-                                    <tbody>
-                                        <tr>
-                                            <th class="text-center">NO</th>
-                                            <th class="text-center">MATA PELAJARAN</th>
-                                            <th class="text-center">PENGETAHUAN (KI 3)</th>
-                                            <th class="text-center">KETERAMPILAN (KI 4)</th>
-                                        </tr>
-                                        @php
-                                            $no = 1;
-                                        @endphp
-                                        @foreach ($nilai as $item)
-                                            @if ($item->mapel->id_guru == Auth::guard('guru')->user()->id)
                                                 <tr>
-                                                    <th class="text-center">{{ $no++ }}</th>
-                                                    <td>{{ $item->mapel->nama_mapel }}</td>
-                                                    <td>
-                                                        <input type="text" class="form-control"
-                                                            name="keterangan_pengetahuan[{{ $item->id }}]"
-                                                            value="{{ $item->keterangan_pengetahuan }}">
+                                                    <td class="text-center">
+                                                        <select name="spiritual_sikap" class="form-control" id="">
+                                                            <option value="{{ $nilai_tambahan->spiritual_sikap }}">
+                                                                {{ $nilai_tambahan->spiritual_sikap }}</option>
+                                                            <option value="SANGAT BAIK">SANGAT BAIK</option>
+                                                            <option value="BAIK">BAIK</option>
+                                                            <option value="CUKUP">CUKUP</option>
+                                                            <option value="BURUK">BURUK</option>
+                                                            <option value="SANGAT BURUK">SANGAT BURUK</option>
+                                                        </select>
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control"
-                                                            name="keterangan_keterampilan[{{ $item->id }}]"
-                                                            value="{{ $item->keterangan_keterampilan }}">
+                                                            name="spiritual_sikap_keterangan"
+                                                            value="{{ $nilai_tambahan->spiritual_sikap_keterangan }}">
                                                     </td>
                                                 </tr>
-                                            @endif
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <!-- END DESKRIPSI PENGETAHUAN DAN KETERAMPILAN -->
-                                <!-- EKSTRAKURIKULER -->
-                                @if (Auth::guard('guru')->user()->id_kelas == $kelas->id)
+                                            </tbody>
+                                        </table>
+                                        <br>
+                                        <h5 class="m-2 font-weight-bold text-dark" style="font-size: 17px">2. SIKAP SOSIAL
+                                        </h5>
+                                        <table class="table table-bordered table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <th class="text-center">PREDIKAT</th>
+                                                    <th class="text-center">KETERANGAN</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <select name="sosial_sikap" class="form-control" id="">
+                                                            <option value="{{ $nilai_tambahan->sosial_sikap }}">
+                                                                {{ $nilai_tambahan->sosial_sikap }}</option>
+                                                            <option value="SANGAT BAIK">SANGAT BAIK</option>
+                                                            <option value="BAIK">BAIK</option>
+                                                            <option value="CUKUP">CUKUP</option>
+                                                            <option value="BURUK">BURUK</option>
+                                                            <option value="SANGAT BURUK">SANGAT BURUK</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control"
+                                                            name="sosial_sikap_keterangan"
+                                                            value="{{ $nilai_tambahan->sosial_sikap_keterangan }}">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    @endif
+                                    <!-- END SIKAP -->
+                                    <!-- PENGETAHUAN DAN KETERAMPILAN -->
                                     <hr>
-                                    <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">C. EKSTRAKURIKULER
-                                    </h5>
+                                    <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">B. PENGETAHUAN DAN
+                                        KETERAMPILAN</h5>
                                     <hr>
-                                    <table class="table table-bordered table-striped" id="ekskulTable">
-                                        <thead>
+                                    <table class="table table-bordered table-striped">
+                                        <tbody>
                                             <tr>
-                                                <th colspan="2" class="text-center">KEGIATAN EKSTRAKURIKULER</th>
+                                                <th colspan="2" class="text-center">ASPEK PENILAIAN</th>
+                                                <th colspan="3" class="text-center">PENGETAHUAN (KI 3)</th>
+                                                <th colspan="2" class="text-center">KETERAMPILAN (KI 4)</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center">NO</th>
+                                                <th class="text-center">MATA PELAJARAN</th>
                                                 <th class="text-center">NILAI</th>
-                                                <th class="text-center">KETERANGAN</th>
+                                                <th class="text-center">KKM</th>
+                                                <th class="text-center">PREDIKAT</th>
+                                                <th class="text-center">NILAI</th>
+                                                <th class="text-center">PREDIKAT</th>
                                             </tr>
-                                        </thead>
-                                        <tbody>
                                             @php
                                                 $no = 1;
                                             @endphp
-                                            @foreach ($ekskul as $index => $item)
+                                            @foreach ($nilai as $item)
+                                                @if ($item->mapel->id_guru == Auth::guard('guru')->user()->id)
+                                                    <tr>
+                                                        <th class="text-center">{{ $no++ }}</th>
+                                                        <td>{{ $item->mapel->nama_mapel }}</td>
+                                                        <td>
+                                                            <input type="text"
+                                                                class="form-control text-center nilai-pengetahuan"
+                                                                name="nilai_pengetahuan[{{ $item->id }}]"
+                                                                value="{{ $item->nilai_pengetahuan }}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text"
+                                                                class="form-control text-center kkm-pengetahuan"
+                                                                name="kkm_pengetahuan[{{ $item->id }}]" value="78"
+                                                                readonly>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text"
+                                                                class="form-control text-center predikat-pengetahuan"
+                                                                name="predikat_pengetahuan[{{ $item->id }}]"
+                                                                value="{{ $item->predikat_pengetahuan }}" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text"
+                                                                class="form-control text-center nilai-keterampilan"
+                                                                name="nilai_keterampilan[{{ $item->id }}]"
+                                                                value="{{ $item->nilai_keterampilan }}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text"
+                                                                class="form-control text-center predikat-keterampilan"
+                                                                name="predikat_keterampilan[{{ $item->id }}]"
+                                                                value="{{ $item->predikat_keterampilan }}" readonly>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <table class="col-md-6 mt-4 table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2" style="vertical-align: middle; text-align: center;">KKM
+                                                </th>
+                                                <th colspan="4" style="vertical-align: middle; text-align: center;">
+                                                    Predikat</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="vertical-align: middle; text-align: center;">D</th>
+                                                <th style="vertical-align: middle; text-align: center;">C</th>
+                                                <th style="vertical-align: middle; text-align: center;">B</th>
+                                                <th style="vertical-align: middle; text-align: center;">A</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="vertical-align: middle; text-align: center;">78</td>
+                                                <!-- KKM -->
+                                                <td style="vertical-align: middle; text-align: center;">0 - 77</td>
+                                                <!-- Predikat D -->
+                                                <td style="vertical-align: middle; text-align: center;">78 - 84</td>
+                                                <!-- Predikat C -->
+                                                <td style="vertical-align: middle; text-align: center;">85 - 92</td>
+                                                <!-- Predikat B -->
+                                                <td style="vertical-align: middle; text-align: center;">93 - 100</td>
+                                                <!-- Predikat A -->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- END PENGETAHUAN DAN KETERAMPILAN -->
+                                    <!-- DESKRIPSI PENGETAHUAN DAN KETERAMPILAN -->
+                                    <hr>
+                                    <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">DESKRIPSI
+                                        PENGETAHUAN
+                                        DAN KETERAMPILAN</h5>
+                                    <hr>
+                                    <table class="table table-bordered table-striped">
+                                        <tbody>
+                                            <tr>
+                                                <th class="text-center">NO</th>
+                                                <th class="text-center">MATA PELAJARAN</th>
+                                                <th class="text-center">PENGETAHUAN (KI 3)</th>
+                                                <th class="text-center">KETERAMPILAN (KI 4)</th>
+                                            </tr>
+                                            @php
+                                                $no = 1;
+                                            @endphp
+                                            @foreach ($nilai as $item)
+                                                @if ($item->mapel->id_guru == Auth::guard('guru')->user()->id)
+                                                    <tr>
+                                                        <th class="text-center">{{ $no++ }}</th>
+                                                        <td>{{ $item->mapel->nama_mapel }}</td>
+                                                        <td>
+                                                            <input type="text" class="form-control"
+                                                                name="keterangan_pengetahuan[{{ $item->id }}]"
+                                                                value="{{ $item->keterangan_pengetahuan }}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control"
+                                                                name="keterangan_keterampilan[{{ $item->id }}]"
+                                                                value="{{ $item->keterangan_keterampilan }}">
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <!-- END DESKRIPSI PENGETAHUAN DAN KETERAMPILAN -->
+                                    <!-- EKSTRAKURIKULER -->
+                                    @if (Auth::guard('guru')->user()->id == $member->id_guru)
+                                        <hr>
+                                        <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">C.
+                                            EKSTRAKURIKULER
+                                        </h5>
+                                        <hr>
+                                        <table class="table table-bordered table-striped" id="ekskulTable">
+                                            <thead>
                                                 <tr>
-                                                    <td class="text-center">{{ $no++ }}</td>
-                                                    <td>
-                                                        <input type="text" class="form-control"
-                                                            name="ekskul_kegiatan[{{ $item->id }}]"
-                                                            value="{{ $item->ekskul_kegiatan }}">
-                                                    </td>
+                                                    <th colspan="2" class="text-center">KEGIATAN EKSTRAKURIKULER</th>
+                                                    <th class="text-center">NILAI</th>
+                                                    <th class="text-center">KETERANGAN</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $no = 1;
+                                                @endphp
+                                                @foreach ($ekskul as $index => $item)
+                                                    <tr>
+                                                        <td class="text-center">{{ $no++ }}</td>
+                                                        <td>
+                                                            <input type="text" class="form-control"
+                                                                name="ekskul_kegiatan[{{ $item->id }}]"
+                                                                value="{{ $item->ekskul_kegiatan }}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control text-center"
+                                                                name="ekskul_nilai[{{ $item->id }}]"
+                                                                value="{{ $item->ekskul_nilai }}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control"
+                                                                name="ekskul_keterangan[{{ $item->id }}]"
+                                                                value="{{ $item->ekskul_keterangan }}">
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        <input type="button" class="btn btn-primary mt-2" id="addRow"
+                                            value="Tambah Row">
+                                    @endif
+                                    <!-- END EKSTRAKURIKULER -->
+                                    <!-- PRESTASI -->
+                                    @if (Auth::guard('guru')->user()->id == $member->id_guru)
+                                        <hr>
+                                        <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">D. PRESTASI
+                                        </h5>
+                                        <hr>
+                                        <table class="table table-bordered table-striped" id="prestasiTable">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" class="text-center">JENIS PRESTASI</th>
+                                                    <th class="text-center">KETERANGAN</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $no = 1;
+                                                @endphp
+                                                @foreach ($prestasi as $index => $item)
+                                                    <tr>
+                                                        <td class="text-center">{{ $no++ }}</td>
+                                                        <td>
+                                                            <input type="text" class="form-control"
+                                                                name="prestasi[{{ $item->id }}]"
+                                                                value="{{ $item->prestasi }}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control"
+                                                                name="keterangan_prestasi[{{ $item->id }}]"
+                                                                value="{{ $item->keterangan }}">
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        <input type="button" class="btn btn-primary mt-2" id="addPrestasiRow"
+                                            value="Tambah Row">
+                                    @endif
+                                    <!-- END PRESTASI -->
+                                    <!-- KETIDAKHADIRAN -->
+                                    @if (Auth::guard('guru')->user()->id == $member->id_guru)
+                                        <hr>
+                                        <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">E.
+                                            KETIDAKHADIRAN
+                                        </h5>
+                                        <hr>
+                                        <table class="table table-bordered table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <th colspan="2" class="text-center">KETIDAKHADIRAN</th>
+                                                    <th class="text-center">KETERANGAN</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center" width="40 px">1</td>
+                                                    <td>Sakit</td>
                                                     <td>
                                                         <input type="text" class="form-control text-center"
-                                                            name="ekskul_nilai[{{ $item->id }}]"
-                                                            value="{{ $item->ekskul_nilai }}">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control"
-                                                            name="ekskul_keterangan[{{ $item->id }}]"
-                                                            value="{{ $item->ekskul_keterangan }}">
+                                                            name="sakit" value="{{ $nilai_tambahan->sakit }}">
                                                     </td>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <input type="button" class="btn btn-primary mt-2" id="addRow"
-                                        value="Tambah Row">
-                                @endif
-                                <!-- END EKSTRAKURIKULER -->
-                                <!-- PRESTASI -->
-                                @if (Auth::guard('guru')->user()->id_kelas == $kelas->id)
-                                    <hr>
-                                    <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">D. PRESTASI</h5>
-                                    <hr>
-                                    <table class="table table-bordered table-striped" id="prestasiTable">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="2" class="text-center">JENIS PRESTASI</th>
-                                                <th class="text-center">KETERANGAN</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $no = 1;
-                                            @endphp
-                                            @foreach ($prestasi as $index => $item)
                                                 <tr>
-                                                    <td class="text-center">{{ $no++ }}</td>
+                                                    <td class="text-center" width="40 px">2</td>
+                                                    <td>Izin</td>
                                                     <td>
-                                                        <input type="text" class="form-control"
-                                                            name="prestasi[{{ $item->id }}]"
-                                                            value="{{ $item->prestasi }}">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control"
-                                                            name="keterangan_prestasi[{{ $item->id }}]"
-                                                            value="{{ $item->keterangan }}">
+                                                        <input type="text" class="form-control text-center"
+                                                            name="izin" value="{{ $nilai_tambahan->izin }}">
                                                     </td>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <input type="button" class="btn btn-primary mt-2" id="addPrestasiRow"
-                                        value="Tambah Row">
-                                @endif
-                                <!-- END PRESTASI -->
-                                <!-- KETIDAKHADIRAN -->
-                                @if (Auth::guard('guru')->user()->id_kelas == $kelas->id)
-                                    <hr>
-                                    <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">E. KETIDAKHADIRAN
-                                    </h5>
-                                    <hr>
-                                    <table class="table table-bordered table-striped">
-                                        <tbody>
-                                            <tr>
-                                                <th colspan="2" class="text-center">KETIDAKHADIRAN</th>
-                                                <th class="text-center">KETERANGAN</th>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center" width="40 px">1</td>
-                                                <td>Sakit</td>
-                                                <td>
-                                                    <input type="text" class="form-control text-center" name="sakit"
-                                                        value="{{ $nilai_tambahan->sakit }}">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center" width="40 px">2</td>
-                                                <td>Izin</td>
-                                                <td>
-                                                    <input type="text" class="form-control text-center" name="izin"
-                                                        value="{{ $nilai_tambahan->izin }}">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center" width="40 px">3</td>
-                                                <td>Tanpa Keterangan</td>
-                                                <td>
-                                                    <input type="text" class="form-control text-center"
-                                                        name="tanpaketerangan"
-                                                        value="{{ $nilai_tambahan->tanpaketerangan }}">
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                @endif
-                                <!-- END KETIDAKHADIRAN -->
-                                <!-- CATATAN WALI KELAS -->
-                                @if (Auth::guard('guru')->user()->id_kelas == $kelas->id)
-                                    <hr>
-                                    <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">F. CATATAN WALI
-                                        KELAS
-                                    </h5>
-                                    <hr>
-                                    <div class="col-md-12">
-                                        <textarea class="form-control" name="catatan_wali" id="" cols="30">{{ $nilai_tambahan->catatan_wali }}</textarea>
-                                    </div>
-                                @endif
-                                <!-- END CATATAN WALI KELAS -->
-                                <!-- TANGGAPAN ORANG TUA -->
-                                @if (Auth::guard('guru')->user()->id_kelas == $kelas->id)
-                                    <hr>
-                                    <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">G. TANGGAPAN ORANG
-                                        TUA/WALI</h5>
-                                    <hr>
-                                    <div class="col-md-12">
-                                        <textarea class="form-control" name="tanggapan_ortu" id="" cols="30">{{ $nilai_tambahan->tanggapan_ortu }}</textarea>
-                                    </div>
-                                @endif
-                                <!-- END TANGGAPAN ORANG TUA -->
-                                <!-- KETERANGAN LULUS -->
-                                <hr>
-                                @if (Auth::guard('guru')->user()->id_kelas == $kelas->id)
-                                    @if ($kelas->tahunAjar->deskripsi == 'Genap')
-                                        <div class="col-md-12">
-                                            <label for="">KETERANGAN LULUS:
-                                            </label>
-                                            <select name="keterangan_lulus" class="form-control" id="">
-                                                <option value="{{ $nilai_tambahan->keterangan_lulus }}">
-                                                    {{ $nilai_tambahan->keterangan_lulus }}</option>
-                                                <option value="LULUS">LULUS</option>
-                                                <option value="TIDAK LULUS">TIDAK LULUS</option>
-                                            </select>
-                                        </div>
-                                        <!-- END KETERANGAN LULUS -->
-                                        <hr>
+                                                <tr>
+                                                    <td class="text-center" width="40 px">3</td>
+                                                    <td>Tanpa Keterangan</td>
+                                                    <td>
+                                                        <input type="text" class="form-control text-center"
+                                                            name="tanpaketerangan"
+                                                            value="{{ $nilai_tambahan->tanpaketerangan }}">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     @endif
-                                @endif
-                                <div class="mt-4">
-                                    <button type="submit" class="btn btn-primary float-right"><i class="fa fa-save"></i>
-                                        Simpan</button>
-                                </div>
+                                    <!-- END KETIDAKHADIRAN -->
+                                    <!-- CATATAN WALI KELAS -->
+                                    @if (Auth::guard('guru')->user()->id == $member->id_guru)
+                                        <hr>
+                                        <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">F. CATATAN WALI
+                                            KELAS
+                                        </h5>
+                                        <hr>
+                                        <div class="col-md-12">
+                                            <textarea class="form-control" name="catatan_wali" id="" cols="30">{{ $nilai_tambahan->catatan_wali }}</textarea>
+                                        </div>
+                                    @endif
+                                    <!-- END CATATAN WALI KELAS -->
+                                    <!-- TANGGAPAN ORANG TUA -->
+                                    @if (Auth::guard('guru')->user()->id == $member->id_guru)
+                                        <hr>
+                                        <h5 class="m-0 font-weight-bold text-dark" style="font-size: 20px">G. TANGGAPAN
+                                            ORANG
+                                            TUA/WALI</h5>
+                                        <hr>
+                                        <div class="col-md-12">
+                                            <textarea class="form-control" name="tanggapan_ortu" id="" cols="30">{{ $nilai_tambahan->tanggapan_ortu }}</textarea>
+                                        </div>
+                                    @endif
+                                    <!-- END TANGGAPAN ORANG TUA -->
+                                    <!-- KETERANGAN LULUS -->
+                                    <hr>
+                                    @if (Auth::guard('guru')->user()->id == $kelas->id)
+                                        @if ($kelas->tahunAjar->deskripsi == 'Genap')
+                                            <div class="col-md-12">
+                                                <label for="">KETERANGAN LULUS:
+                                                </label>
+                                                <select name="keterangan_lulus" class="form-control" id="">
+                                                    <option value="{{ $nilai_tambahan->keterangan_lulus }}">
+                                                        {{ $nilai_tambahan->keterangan_lulus }}</option>
+                                                    <option value="LULUS">LULUS</option>
+                                                    <option value="TIDAK LULUS">TIDAK LULUS</option>
+                                                </select>
+                                            </div>
+                                            <!-- END KETERANGAN LULUS -->
+                                            <hr>
+                                        @endif
+                                    @endif
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-primary float-right"><i
+                                                class="fa fa-save"></i>
+                                            Simpan</button>
+                                    </div>
+                                @endforeach
+
                             @endempty
                         </div>
                     </div>

@@ -48,14 +48,17 @@ class AnggotaController extends Controller
     {
         $request->validate([
             'id_kelas' => 'required',
+            'id_guru' => 'required',
 
         ], [
             'id_kelas' => 'Kolom kelas Harus Diisi',
+            'id_guru' => 'Kolom Wali Kelas Harus Diisi',
 
         ]);
 
         $anggota = new Anggota();
         $anggota->id_kelas = request('id_kelas');
+        $anggota->id_guru = request('id_guru');
         $anggota->save();
 
         return redirect('admin/anggota')->with('success', 'Data Berhasil Ditambahkan');
@@ -65,6 +68,7 @@ class AnggotaController extends Controller
     {
         $anggota = Anggota::find($id);
         if (request('id_kelas')) $anggota->id_kelas = request('id_kelas');
+        if (request('id_guru')) $anggota->id_guru = request('id_guru');
         $anggota->save();
 
         return redirect('admin/anggota')->with('success', 'Data Berhasil di Edit');

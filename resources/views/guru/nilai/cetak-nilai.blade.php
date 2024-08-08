@@ -637,9 +637,11 @@
 
                                     </div>
                                     <br>
-                                    <b>{{ $guru->nama_guru }}</b>
-                                    <br>
-                                    NIP. {{ $guru->nip }}
+                                    @foreach ($anggota as $member)
+                                        <b>{{ $member->guru->nama_guru }}</b>
+                                        <br>
+                                        NIP. {{ $member->guru->nip }}
+                                    @endforeach
                                 </td>
                             </tr>
                         </tbody>

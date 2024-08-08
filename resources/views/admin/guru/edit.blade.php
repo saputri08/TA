@@ -42,21 +42,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="" class="control-label mt-3">Kelas</label>
-                                    <select name="id_kelas" id="" class="form-control mb-3">
-                                        <option value="{{ $guru->kelas->nama_kelas }}">
-                                            {{ $guru->kelas->nama_kelas }}
-                                        </option>
-                                        @foreach ($list_kelas as $kelas)
-                                            <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            
+                            <div class="col-md-6">
                                 <label for="" class="control-label mt-3">Tanggal Lahir</label>
                                 <input type="date" value="{{ $guru->tgl_lahir }}" name="tanggal_lahir"
                                     class="form-control mb-3" placeholder="Masukan Tanggal Lahir">
@@ -65,7 +52,7 @@
                                         style="font-size: 12px">
                                 @enderror
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="" class="control-label mt-3">Jenis Kelamin</label>
                                     <select name="jenis_kelamin" id="" class="form-control">

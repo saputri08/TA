@@ -25,6 +25,11 @@ class Guru extends ModelAuthenticate
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id');
     }
 
+    function anggota()
+    {
+        return $this->belongsTo(Anggota::class, 'id_guru', 'id');
+    }
+
     public function getTanggalLahirStringAttribute()
     {
         return Carbon::parse($this->attributes['tgl_lahir'])->translatedFormat('l, d F Y');

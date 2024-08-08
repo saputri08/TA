@@ -553,7 +553,8 @@
                             <tbody>
                                 <tr>
                                     <td style="border: 2px solid black; vertical-align: middle;">KETERANGAN LULUS:
-                                        <strong>{{ $nilai_tambahan->keterangan_lulus }}</strong></span></td>
+                                        <strong>{{ $nilai_tambahan->keterangan_lulus }}</strong></span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -585,9 +586,11 @@
 
                                     </div>
                                     <br>
-                                    <b>{{ $guru->nama_guru }}</b>
-                                    <br>
-                                    NIP. {{ $guru->nip }}
+                                    @foreach ($anggota as $member)
+                                        <b>{{ $member->guru->nama_guru }}</b>
+                                        <br>
+                                        NIP. {{ $member->guru->nip }}
+                                    @endforeach
                                 </td>
                             </tr>
                         </tbody>
