@@ -604,7 +604,7 @@
                                     <br>
                                     Kepala Madrasah
                                     <br>
-                                    <img src="{{ url('public/'.$nilai_tambahan->qr_kepsek) }}" alt="QR Code"
+                                    <img src="{{ url('public') }}/{{ $nilai_tambahan->qr_kepsek }}" alt="QR Code"
                                         style="width:50%; height:50%;" />
                                     <br>
                                     <b>{{ $kepsek->nama_kepsek }}</b>

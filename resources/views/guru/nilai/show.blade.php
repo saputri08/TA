@@ -19,7 +19,8 @@
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        <a href="{{ url("guru/nilai/$anggota->id") }}/nilai" class="btn btn-primary"><span class="fa fa-plus"></span> Tambah Nilai</a>
+                                        <a href="{{ url('guru/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas . '/edit') }}" class="btn btn-primary"><span class="fa fa-plus"></span> Tambah Nilai</a>
+                                        {{-- <a href="{{ url("guru/nilai/$anggota->id") }}/nilai" class="btn btn-primary"><span class="fa fa-plus"></span> Tambah Nilai</a> --}}
                                         <a href="{{ url('guru/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas) }}/detail" class="btn btn-dark"><span class="fa fa-info"></span> Detail Nilai</a>
                                         <a href="{{ url('guru/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas . '/edit') }}" class="btn btn-warning"><i class="fa fa-edit"></i> Edit</a>
                                         <a href="{{ url('guru/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas) }}" class="btn btn-success" target="_blank"><i class="fa fa-print"></i> Cetak Data</a>

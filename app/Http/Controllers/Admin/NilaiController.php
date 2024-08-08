@@ -393,7 +393,7 @@ class NilaiController extends Controller
             ->with('kelas.tahunAjar')
             ->get();
 
-        return view('admin.nilai.cetak-nilai', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas', 'guru','kepsek'));
+        return view('admin.nilai.cetak-nilai', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas', 'guru', 'kepsek'));
     }
 
     function generateQrcode($output_file, $data)
@@ -424,7 +424,7 @@ NISN : " . $data['nisn'] . "
             ->setResizeToWidth(50);
 
         $result = $writer->write($qrCode, $logo);
-        $result->saveToFile("app/QR/" . $output_file);
+        $result->saveToFile("public/app/QR/" . $output_file);
 
         return "app/QR/$output_file";
     }

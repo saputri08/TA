@@ -15,24 +15,23 @@
                 </thead>
                 <tbody>
                     @php
-                    $no = 1;
+                        $no = 1;
                     @endphp
                     @foreach ($list_anggota as $anggota)
-                    @if($anggota->id_kelas == Auth::guard('guru')->user()->id_kelas)
-                    <tr>
-                        <td class="text-center">{{ $no++ }}</td>
-                        <td class="text-center">{{ $anggota->Kelas->nama_kelas }}</td>
-                        <td class="text-center">
-                            {{ $anggota->Kelas->TahunAjar->tahun_mulai }}/{{ $anggota->Kelas->TahunAjar->tahun_selesai }}
-                        </td>
-                        <td class="text-center">{{ $anggota->Kelas->TahunAjar->deskripsi }}</td>
-                        <td class="text-center" width="90px">
-                            <div class="btn-group">
-                                <a href="{{ url('guru/nilai', $anggota->id) }}" class="btn btn-dark" style="font-weight: bold;">Detail</a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endif
+                        <tr>
+                            <td class="text-center">{{ $no++ }}</td>
+                            <td class="text-center">{{ $anggota->Kelas->nama_kelas }}</td>
+                            <td class="text-center">
+                                {{ $anggota->Kelas->TahunAjar->tahun_mulai }}/{{ $anggota->Kelas->TahunAjar->tahun_selesai }}
+                            </td>
+                            <td class="text-center">{{ $anggota->Kelas->TahunAjar->deskripsi }}</td>
+                            <td class="text-center" width="90px">
+                                <div class="btn-group">
+                                    <a href="{{ url('guru/nilai', $anggota->id) }}" class="btn btn-dark"
+                                        style="font-weight: bold;">Detail</a>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

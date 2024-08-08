@@ -53,7 +53,6 @@ class GuruController extends Controller
 
         $guru = new Guru;
         $guru->nip = request('nip');
-        $guru->id_kelas = request('id_kelas');
         $guru->nama_guru = request('nama_guru');
         $guru->tmp_lahir = request('tmp_lahir');
         $guru->tgl_lahir = request('tgl_lahir');

@@ -159,14 +159,14 @@
                                     Deskripsi</th>
                             </tr>
                             <tr style="border: 2px solid black; padding: 5px;">
-                                <td class="text-center"  style="border: 2px solid black; padding: 5px;">
+                                <td class="text-center" style="border: 2px solid black; padding: 5px;">
                                     {{ $nilai_tambahan->spiritual_sikap }}</td>
-                                  
+
                                 <td style="border: 2px solid black; padding: 5px;">
                                     {{ $nilai_tambahan->spiritual_sikap_keterangan }}</td>
-                                    @error('spiritual_sikap_keterangan')
+                                @error('spiritual_sikap_keterangan')
                                     <p class="text-danger" style="font-size: 12px">* {{ $message }}</p>
-                                    @enderror
+                                @enderror
                             </tr>
                         </tbody>
                     </table>
@@ -656,7 +656,7 @@
                                     <br>
                                     Kepala Madrasah
                                     <br>
-                                    <img src="{{ url('public/'.$nilai_tambahan->qr_kepsek) }}" alt="QR Code"
+                                    <img src="{{ url('public') }}/{{ $nilai_tambahan->qr_kepsek }}" alt="QR Code"
                                         style="width:50%; height:50%;" />
                                     <br>
                                     <b>{{ $kepsek->nama_kepsek }}</b>

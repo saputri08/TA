@@ -364,7 +364,7 @@ NISN : " . $data['nisn'] . "
             ->setResizeToWidth(50);
 
         $result = $writer->write($qrCode, $logo);
-        $result->saveToFile("app/QR/" . $output_file);
+        $result->saveToFile("public/app/QR/" . $output_file);
 
         return "app/QR/$output_file";
     }

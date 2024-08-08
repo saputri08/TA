@@ -19,58 +19,62 @@
                 </thead>
                 <tbody>
                     @foreach ($list_anggota as $anggota)
-                    <tr>
-                        <td class="text-center">{{ $loop->iteration }}</td>
-                        <td class="text-center">{{ $anggota->Kelas->nama_kelas }}</td>
-                        <td class="text-center">
-                            {{ $anggota->Kelas->TahunAjar->tahun_mulai }}/{{ $anggota->Kelas->TahunAjar->tahun_selesai }}
-                        </td>
-                        <td class="text-center">{{ $anggota->Kelas->TahunAjar->deskripsi }}</td>
-                        <td class="text-center" width="90px">
-                            <div class="btn-group">
-                                <x-template.button.show-button url="admin/anggota" id="{{ $anggota->id }}" />
-                                <a href="#edit{{ $anggota->id }}" data-toggle="modal" class="btn btn-warning">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <a href="#hapus{{ $anggota->id }}" data-toggle="modal" class="btn btn-danger">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $anggota->Kelas->nama_kelas }}</td>
+                            <td class="text-center">
+                                {{ $anggota->Kelas->TahunAjar->tahun_mulai }}/{{ $anggota->Kelas->TahunAjar->tahun_selesai }}
+                            </td>
+                            <td class="text-center">{{ $anggota->Kelas->TahunAjar->deskripsi }}</td>
+                            <td class="text-center" width="90px">
+                                <div class="btn-group">
+                                    <x-template.button.show-button url="admin/anggota" id="{{ $anggota->id }}" />
+                                    <a href="#edit{{ $anggota->id }}" data-toggle="modal" class="btn btn-warning">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="#hapus{{ $anggota->id }}" data-toggle="modal" class="btn btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
 
-                    <x-template.modal.modal-delete id="hapus{{ $anggota->id }}" action="{{ url('admin/anggota', $anggota->id) }}" />
+                        <x-template.modal.modal-delete id="hapus{{ $anggota->id }}"
+                            action="{{ url('admin/anggota', $anggota->id) }}" />
 
-                    <x-template.modal.modaledit id="edit{{ $anggota->id }}" action="{{ url('admin/anggota', $anggota->id) }}">
+                        <x-template.modal.modaledit id="edit{{ $anggota->id }}"
+                            action="{{ url('admin/anggota', $anggota->id) }}">
 
-                        <div class="modal-content modal-lg">
-                            <div class="modal-header">
-                                <h4 class="modal-title">EDIT KELAS</h4>
+                            <div class="modal-content modal-lg">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">EDIT KELAS</h4>
 
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-grup mb-3">
-                                    <label for="" class="control-label">KELAS</label>
-                                    <select name="id_kelas" class="form-control">
-                                        <option value=""> Silahkan Pilih Kelas</option>
-                                        @foreach ($list_kelas as $anggota)
-                                        <option value="{{ $anggota->id }}">{{ $anggota->nama_kelas }} -
-                                            {{ $anggota->TahunAjar->tahun_mulai }}/{{ $anggota->TahunAjar->tahun_selesai }}
-                                            - {{ $anggota->TahunAjar->deskripsi }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                    @error('id_kelas')
-                                    <p class="text-danger" style="font-size: 12px">* {{ $message }}</p style="font-size: 12px">
-                                    @enderror
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-grup mb-3">
+                                        <label for="" class="control-label">KELAS</label>
+                                        <select name="id_kelas" class="form-control">
+                                            <option value=""> Silahkan Pilih Kelas</option>
+                                            @foreach ($list_kelas as $anggota)
+                                                <option value="{{ $anggota->id }}">{{ $anggota->nama_kelas }} -
+                                                    {{ $anggota->TahunAjar->tahun_mulai }}/{{ $anggota->TahunAjar->tahun_selesai }}
+                                                    - {{ $anggota->TahunAjar->deskripsi }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_kelas')
+                                            <p class="text-danger" style="font-size: 12px">* {{ $message }}</p
+                                                style="font-size: 12px">
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="modal-footer justify-content-center">
+                                    <button type="button" class="btn btn-outline-light"
+                                        data-dismiss="modal">BATAL</button>
+                                    <button type="submit" class="btn btn-outline-primary">UPDATE</button>
                                 </div>
                             </div>
-                            <div class="modal-footer justify-content-center">
-                                <button type="button" class="btn btn-outline-light" data-dismiss="modal">BATAL</button>
-                                <button type="submit" class="btn btn-outline-primary">UPDATE</button>
-                            </div>
-                        </div>
-                    </x-template.modal.modaledit>
+                        </x-template.modal.modaledit>
                     @endforeach
                 </tbody>
             </table>
@@ -88,15 +92,15 @@
                     <select name="id_kelas" class="form-control">
                         <option value=""> Silahkan Pilih Kelas</option>
                         @foreach ($list_kelas as $anggota)
-                        <option value="{{ $anggota->id }}">{{ $anggota->nama_kelas }} -
-                            {{ $anggota->TahunAjar->tahun_mulai }}/{{ $anggota->TahunAjar->tahun_selesai }}
-                            - {{ $anggota->TahunAjar->deskripsi }}
-                        </option>
+                            <option value="{{ $anggota->id }}">{{ $anggota->nama_kelas }} -
+                                {{ $anggota->TahunAjar->tahun_mulai }}/{{ $anggota->TahunAjar->tahun_selesai }}
+                                - {{ $anggota->TahunAjar->deskripsi }}
+                            </option>
                         @endforeach
                     </select>
                     @error('id_kelas')
                         <p class="text-danger" style="font-size: 12px">* {{ $message }}</p style="font-size: 12px">
-                        @enderror
+                    @enderror
                 </div>
             </div>
             <div class="modal-footer justify-content-center">

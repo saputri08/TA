@@ -26,12 +26,19 @@ use Endroid\QrCode\LabelAlignment;
 use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\RoundBlockSizeMode;
 use Endroid\QrCode\Writer\PngWriter;
+use Illuminate\Support\Facades\Auth;
 
 class NilaiController extends Controller
 {
     public function index()
     {
-        $data['list_anggota'] = Anggota::all();
+        $guruId = Auth::guard('guru')->user()->id;
+
+        $listAnggota = Anggota::whereHas('Kelas.mapel', function ($query) use ($guruId) {
+            $query->where('id_guru', $guruId);
+        })->get();
+
+        $data['list_anggota'] = $listAnggota;
         $data['list_kelas'] = Kelas::all();
         return view('guru.nilai.index', $data);
     }
@@ -260,42 +267,46 @@ class NilaiController extends Controller
         }
 
         // Update ekskul
-        foreach ($request->ekskul_kegiatan as $id => $ekskul_kegiatan) {
-            if ($id == 'new') {
-                Ekstrakurikuler::create([
-                    'id_anggota' => $request->id_anggota,
-                    'id_kelas' => $request->id_kelas,
-                    'id_siswa' => $siswa->id,
-                    'ekskul_kegiatan' => $ekskul_kegiatan,
-                    'ekskul_nilai' => $request->ekskul_nilai[$id],
-                    'ekskul_keterangan' => $request->ekskul_keterangan[$id],
-                ]);
-            } else {
-                $ekskul = Ekstrakurikuler::find($id);
-                $ekskul->update([
-                    'ekskul_kegiatan' => $ekskul_kegiatan,
-                    'ekskul_nilai' => $request->ekskul_nilai[$id],
-                    'ekskul_keterangan' => $request->ekskul_keterangan[$id],
-                ]);
+        if ($request->has('ekskul_kegiatan')) {
+            foreach ($request->ekskul_kegiatan as $id => $ekskul_kegiatan) {
+                if ($id == 'new') {
+                    Ekstrakurikuler::create([
+                        'id_anggota' => $request->id_anggota,
+                        'id_kelas' => $request->id_kelas,
+                        'id_siswa' => $siswa->id,
+                        'ekskul_kegiatan' => $ekskul_kegiatan,
+                        'ekskul_nilai' => $request->ekskul_nilai[$id],
+                        'ekskul_keterangan' => $request->ekskul_keterangan[$id],
+                    ]);
+                } else {
+                    $ekskul = Ekstrakurikuler::find($id);
+                    $ekskul->update([
+                        'ekskul_kegiatan' => $ekskul_kegiatan,
+                        'ekskul_nilai' => $request->ekskul_nilai[$id],
+                        'ekskul_keterangan' => $request->ekskul_keterangan[$id],
+                    ]);
+                }
             }
         }
 
         // Update prestasi
-        foreach ($request->prestasi as $id => $prestasi) {
-            if ($id == 'new') {
-                Prestasi::create([
-                    'id_anggota' => $request->id_anggota,
-                    'id_kelas' => $request->id_kelas,
-                    'id_siswa' => $siswa->id,
-                    'prestasi' => $prestasi,
-                    'keterangan' => $request->keterangan_prestasi[$id],
-                ]);
-            } else {
-                $prestasiItem = Prestasi::find($id);
-                $prestasiItem->update([
-                    'prestasi' => $prestasi,
-                    'keterangan' => $request->keterangan_prestasi[$id],
-                ]);
+        if ($request->has('prestasi')) {
+            foreach ($request->prestasi as $id => $prestasi) {
+                if ($id == 'new') {
+                    Prestasi::create([
+                        'id_anggota' => $request->id_anggota,
+                        'id_kelas' => $request->id_kelas,
+                        'id_siswa' => $siswa->id,
+                        'prestasi' => $prestasi,
+                        'keterangan' => $request->keterangan_prestasi[$id],
+                    ]);
+                } else {
+                    $prestasiItem = Prestasi::find($id);
+                    $prestasiItem->update([
+                        'prestasi' => $prestasi,
+                        'keterangan' => $request->keterangan_prestasi[$id],
+                    ]);
+                }
             }
         }
 
@@ -424,7 +435,7 @@ NISN : " . $data['nisn'] . "
             ->setResizeToWidth(50);
 
         $result = $writer->write($qrCode, $logo);
-        $result->saveToFile("app/QR/" . $output_file);
+        $result->saveToFile("public/app/QR/" . $output_file);
 
         return "app/QR/$output_file";
     }

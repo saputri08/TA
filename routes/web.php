@@ -55,7 +55,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::resource('tahun-ajar', TahunAjarController::class);
     Route::resource('anggota', AnggotaController::class);
     Route::post('anggota/add-role', [AnggotaController::class, 'addRole']);
-    Route::get('anggota/delete-role/{role}', [AnggotaController::class, 'deleteRole']);
+    Route::get('anggota/delete-role/{id}', [AnggotaController::class, 'deleteRole']);
 
     Route::get('nilai/{anggota}/nilai', [NilaiController::class, 'nilai']);
     Route::get('nilai/{id_siswa}/{id_kelas}/detail', [NilaiController::class, 'nilaiDetail']);
