@@ -19,10 +19,12 @@ use App\Http\Controllers\Guru\ProfileController as GuruProfileController;
 use App\Http\Controllers\Kepsek\AnggotaController as KepsekAnggotaController;
 use App\Http\Controllers\Kepsek\DashboardController as KepsekDashboardController;
 use App\Http\Controllers\Kepsek\NilaiController as KepsekNilaiController;
+use App\Http\Controllers\Kepsek\PengumumanController;
 use App\Http\Controllers\Kepsek\ProfileController as KepsekProfileController;
 use App\Http\Controllers\Siswa\DashboardController as SiswaDashboardController;
 use App\Http\Controllers\Siswa\NilaiController as SiswaNilaiController;
 use App\Http\Controllers\Siswa\ProfileController;
+use App\Models\Pengumuman;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,6 +76,7 @@ Route::prefix('guru')->middleware('auth:guru')->group(function () {
     Route::get('nilai/{id_siswa}/{id_kelas}/detail', [GuruNilaiController::class, 'nilaiDetail']);
     Route::get('nilai/{id_siswa}/{id_kelas}/edit', [GuruNilaiController::class, 'edit']);
     Route::get('nilai/{id_siswa}/{id_kelas}', [GuruNilaiController::class, 'cetakData']);
+    Route::post('pengumuman/detail', [PengumumanController::class, 'pengumumanDetail']);
 });
 
 Route::prefix('kepsek')->middleware('auth:kepsek')->group(function () {
@@ -83,6 +86,7 @@ Route::prefix('kepsek')->middleware('auth:kepsek')->group(function () {
     Route::resource('anggota', KepsekAnggotaController::class);
     Route::get('nilai/{id_siswa}/{id_kelas}/detail', [KepsekNilaiController::class, 'nilaiDetail']);
     Route::get('nilai/{id_siswa}/{id_kelas}', [KepsekNilaiController::class, 'cetakData']);
+    Route::resource('pengumuman', PengumumanController::class);
 });
 
 Route::prefix('siswa')->middleware('auth:siswa')->group(function () {
