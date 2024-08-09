@@ -30,4 +30,9 @@ class Anggota extends ModelAuthenticate
     {
         return $this->belongsTo(Guru::class, 'id_guru');
     }
+
+    public function tahunAjar()
+    {
+        return $this->belongsTo(TahunAjar::class, 'id_tahun_ajar');
+    }
 }

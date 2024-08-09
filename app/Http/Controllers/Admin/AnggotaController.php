@@ -13,6 +13,7 @@ use App\Models\Nilai;
 use App\Models\NilaiTambahan;
 use App\Models\Prestasi;
 use App\Models\Siswa;
+use App\Models\TahunAjar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Endroid\QrCode\Color\Color;
@@ -33,6 +34,7 @@ class AnggotaController extends Controller
         $data['list_anggota'] = Anggota::all();
         $data['list_kelas'] = Kelas::all();
         $data['list_guru'] = Guru::all();
+        $data['list_tahun_ajar'] = TahunAjar::all();
         return view('admin.anggota.index', $data);
     }
 
@@ -49,16 +51,19 @@ class AnggotaController extends Controller
         $request->validate([
             'id_kelas' => 'required',
             'id_guru' => 'required',
+            'id_tahun_ajar' => 'required',
 
         ], [
             'id_kelas' => 'Kolom kelas Harus Diisi',
             'id_guru' => 'Kolom Wali Kelas Harus Diisi',
+            'id_tahun_ajar' => 'Kolom Tahun Ajar Harus Diisi',
 
         ]);
 
         $anggota = new Anggota();
         $anggota->id_kelas = request('id_kelas');
         $anggota->id_guru = request('id_guru');
+        $anggota->id_tahun_ajar = request('id_tahun_ajar');
         $anggota->save();
 
         return redirect('admin/anggota')->with('success', 'Data Berhasil Ditambahkan');
@@ -69,6 +74,7 @@ class AnggotaController extends Controller
         $anggota = Anggota::find($id);
         if (request('id_kelas')) $anggota->id_kelas = request('id_kelas');
         if (request('id_guru')) $anggota->id_guru = request('id_guru');
+        if (request('id_tahun_ajar')) $anggota->id_tahun_ajar = request('id_tahun_ajar');
         $anggota->save();
 
         return redirect('admin/anggota')->with('success', 'Data Berhasil di Edit');

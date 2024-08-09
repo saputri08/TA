@@ -28,7 +28,7 @@
                                     </tr>
                                     <tr>
                                         <td style="font-weight: bold;">SEMESTER</td>
-                                        <td>{{ $kelas->tahunAjar->deskripsi }}</td>
+                                        <td>{{ $semester }}</td>
                                     </tr>
                                 </tbody>
                             </table>

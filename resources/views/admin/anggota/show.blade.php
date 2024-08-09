@@ -11,7 +11,7 @@
                         <dt class="col-4">NAMA KELAS</dt>
                         <dd class="col-8">: {{ $anggota->Kelas->nama_kelas }}</dd>
                         <dt class="col-4">SEMESTER</dt>
-                        <dd class="col-8">: {{ $anggota->Kelas->TahunAjar->deskripsi }}</dd>
+                        <dd class="col-8">: {{ $anggota->tahunAjar->deskripsi }}</dd>
                     </dl>
                 </div>
                 <div class="col-md-5">
@@ -19,7 +19,7 @@
                         <dt class="col-4">TAHUN AJAR</dt>
                         <dd class="col-8">
                             :
-                            {{ $anggota->Kelas->TahunAjar->tahun_mulai }}/{{ $anggota->Kelas->TahunAjar->tahun_selesai }}
+                            {{ $anggota->tahunAjar->tahun_mulai }}/{{ $anggota->tahunAjar->tahun_selesai }}
                         </dd>
                         <dt class="col-4">WALI KELAS</dt>
                         <dd class="col-8">: {{ $anggota->guru->nama_guru }}</dd>
@@ -39,18 +39,16 @@
                         @csrf
                         @foreach ($list_mapel as $mapel)
                             @if ($mapel->id_kelas == $anggota->kelas->id)
-                                <input type="text" name="mapel[{{ $mapel->id }}]" value="{{ $mapel->id }}"
-                                    hidden>
+                                <input type="text" name="mapel[{{ $mapel->id }}]" value="{{ $mapel->id }}" hidden>
                             @endif
                         @endforeach
                         <input type="hidden" name="id_kelas" value="{{ $anggota->Kelas->id }}">
-                        <input type="hidden" name="semester" value="{{ $anggota->Kelas->TahunAjar->deskripsi }}">
+                        <input type="hidden" name="semester" value="{{ $anggota->tahunAjar->deskripsi }}">
                         <input type="hidden" name="id_anggota" value="{{ $anggota->id }}">
                         <input type="hidden" name="nama_siswa" id="nama_siswa" value="">
                         <input type="hidden" name="nisn" id="nisn" value="">
-                        <input type="hidden" name="tahun_mulai" value="{{ $anggota->Kelas->TahunAjar->tahun_mulai }}">
-                        <input type="hidden" name="tahun_selesai"
-                            value="{{ $anggota->Kelas->TahunAjar->tahun_selesai }}">
+                        <input type="hidden" name="tahun_mulai" value="{{ $anggota->tahunAjar->tahun_mulai }}">
+                        <input type="hidden" name="tahun_selesai" value="{{ $anggota->tahunAjar->tahun_selesai }}">
                         <div class="form-group">
                             <select class="select2bs4 form-control" name="id_siswa" style="width: 100%;">
                                 <option value="">Pilih Nama Siswa</option>

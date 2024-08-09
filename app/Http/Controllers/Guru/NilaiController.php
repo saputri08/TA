@@ -34,14 +34,21 @@ class NilaiController extends Controller
     {
         $guruId = Auth::guard('guru')->user()->id;
 
-        $listAnggota = Anggota::whereHas('Kelas.mapel', function ($query) use ($guruId) {
-            $query->where('id_guru', $guruId);
-        })->get();
+        // Query untuk anggota yang diajar oleh guru tersebut berdasarkan mapel atau id_guru
+        $listAnggota = Anggota::where(function ($query) use ($guruId) {
+            // Kondisi 1: Guru mengajar mapel di kelas
+            $query->whereHas('Kelas.mapel', function ($mapelQuery) use ($guruId) {
+                $mapelQuery->where('id_guru', $guruId);
+            });
+        })
+            ->orWhere('id_guru', $guruId) // Kondisi 2: Guru adalah pembimbing anggota tersebut
+            ->get();
 
         $data['list_anggota'] = $listAnggota;
         $data['list_kelas'] = Kelas::all();
         return view('guru.nilai.index', $data);
     }
+
 
     public function show($kelas)
     {
@@ -50,7 +57,7 @@ class NilaiController extends Controller
         return view('guru.nilai.show', $data);
     }
 
-    public function edit($id_siswa, $id_kelas)
+    public function edit($id_siswa, $id_kelas, $deskripsi)
     {
         // Mengambil data siswa berdasarkan ID
         $siswa = Siswa::findOrFail($id_siswa);
@@ -58,37 +65,53 @@ class NilaiController extends Controller
         // Mengambil data kelas berdasarkan ID
         $kelas = Kelas::with('tahunAjar')->findOrFail($id_kelas);
 
-        // Mengambil data kelas berdasarkan ID
-        $kelas = Kelas::findOrFail($id_kelas);
+        // Ambil semester berdasarkan deskripsi yang dipilih
+        $semester = $deskripsi;
 
+        // Mengambil nilai berdasarkan ID siswa, ID kelas, dan semester yang dipilih
         $nilai = Nilai::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            })
             ->with('mapel', 'kelas')
-            ->get(); // Menggunakan get() untuk mendapatkan kumpulan data
+            ->get();
 
-        // Mengambil nilai tambahan berdasarkan ID siswa dan ID kelas
+        // Mengambil nilai tambahan berdasarkan ID siswa, ID kelas, dan semester yang dipilih
         $nilai_tambahan = NilaiTambahan::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            })
             ->first();
 
-        // Mengambil data ekskul berdasarkan ID siswa dan ID kelas
+        // Mengambil data ekskul berdasarkan ID siswa, ID kelas, dan semester yang dipilih
         $ekskul = Ekstrakurikuler::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            })
             ->get();
 
-        // Mengambil data prestasi berdasarkan ID siswa dan ID kelas
+        // Mengambil data prestasi berdasarkan ID siswa, ID kelas, dan semester yang dipilih
         $prestasi = Prestasi::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            })
             ->get();
 
-        // Mengambil data anggota kelas berdasarkan id_kelas
+        // Mengambil data anggota kelas berdasarkan id_kelas dan semester yang dipilih
         $anggota = Anggota::where('id_kelas', $id_kelas)
-            ->with('kelas.tahunAjar')
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            })
+            ->with('anggota.tahunAjar')
             ->get();
 
         $list_mapel = Mapel::all();
 
-        return view('guru.nilai.edit', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas', 'list_mapel'));
+        return view('guru.nilai.edit', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas', 'list_mapel', 'semester'));
     }
 
 
@@ -356,7 +379,7 @@ class NilaiController extends Controller
 
         // Mengambil data anggota kelas berdasarkan id_kelas
         $anggota = Anggota::where('id_kelas', $id_kelas)
-            ->with('kelas.tahunAjar')
+            ->with('anggota.tahunAjar')
             ->get();
 
         return view('guru.nilai.detail', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas'));
@@ -401,7 +424,7 @@ class NilaiController extends Controller
 
         // Mengambil data anggota kelas berdasarkan id_kelas
         $anggota = Anggota::where('id_kelas', $id_kelas)
-            ->with('kelas.tahunAjar')
+            ->with('anggota.tahunAjar')
             ->get();
 
         return view('guru.nilai.cetak-nilai', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas', 'guru', 'kepsek'));

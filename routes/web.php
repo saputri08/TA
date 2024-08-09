@@ -74,7 +74,7 @@ Route::prefix('guru')->middleware('auth:guru')->group(function () {
     Route::get('anggota/delete-role/{role}', [GuruAnggotaController::class, 'deleteRole']);
     Route::get('nilai/{anggota}/nilai', [GuruNilaiController::class, 'nilai']);
     Route::get('nilai/{id_siswa}/{id_kelas}/detail', [GuruNilaiController::class, 'nilaiDetail']);
-    Route::get('nilai/{id_siswa}/{id_kelas}/edit', [GuruNilaiController::class, 'edit']);
+    Route::get('nilai/{id_siswa}/{id_kelas}/{deskripsi}/edit', [GuruNilaiController::class, 'edit']);
     Route::get('nilai/{id_siswa}/{id_kelas}', [GuruNilaiController::class, 'cetakData']);
     Route::post('pengumuman/detail', [PengumumanController::class, 'pengumumanDetail']);
 });

@@ -4,7 +4,7 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="col col-3 col-sm-4" id="gambar">
-                        <img src="{{ url('/') }}/admin-template/dist/img/depan.gif" alt="" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+                        <img src="{{ url('public') }}/admin-template/dist/img/depan.gif" alt="" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
                     </div>
                     <div class="col col-9 col-sm-8">
                         <div class="item greetings">

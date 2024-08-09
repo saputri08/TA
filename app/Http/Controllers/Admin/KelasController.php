@@ -24,17 +24,14 @@ class KelasController extends Controller
     {
         $request->validate([
             'nama_kelas' => 'required',
-            'id_tahun_ajar' => 'required'
 
         ], [
             'nama_kelas.required' => 'Kolom nama_kelas Harus Diisi',
-            'id_tahun_ajar.required' => 'Harus dipilih'
 
         ]);
 
         $kelas = new Kelas();
         $kelas->nama_kelas = request('nama_kelas');
-        $kelas->id_tahun_ajar = request('id_tahun_ajar');
         $kelas->save();
 
         return redirect('admin/kelas')->with('success', 'Data Berhasil Ditambahkan');
@@ -44,7 +41,6 @@ class KelasController extends Controller
     {
         $kelas = Kelas::find($kelas);
         $kelas->nama_kelas = request('nama_kelas');
-        $kelas->id_tahun_ajar = request('id_tahun_ajar');
 
         $kelas->save();
 

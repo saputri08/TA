@@ -8,12 +8,14 @@ use App\Models\AnggotaGrup;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnggotaController extends Controller
 {
     public function index()
     {
-        $data['list_anggota'] = Anggota::all();
+        $guruId = Auth::guard('guru')->user()->id;
+        $data['list_anggota'] = Anggota::where('id_guru', $guruId)->get();
         $data['list_kelas'] = Kelas::all();
         return view('guru.anggota.index', $data);
     }

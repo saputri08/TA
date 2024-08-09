@@ -13,7 +13,6 @@
                 <thead class="bg-dark">
                     <th style="color: white;" width="10px" class="text-center">NO.</th>
                     <th style="color: white;" class="text-center">NAMA KELAS</th>
-                    <th style="color: white;" class="text-center">TAHUN AJAR</th>
                     <th style="color: white;" class="text-center">AKSI</th>
                 </thead>
                 <tbody>
@@ -21,10 +20,6 @@
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $kelas->nama_kelas }}</td>
-                            <td class="text-center">
-                                {{ $kelas->tahunajar->tahun_mulai }}/{{ $kelas->tahunajar->tahun_selesai }}
-                                - {{ $kelas->tahunajar->deskripsi }}
-                            </td>
                             <td class="text-center" width="90px">
                                 <div class="btn-group">
                                     <a href="#edit{{ $kelas->id }}" data-toggle="modal" class="btn btn-warning">
@@ -47,7 +42,6 @@
                             <div class="modal-content modal-lg">
                                 <div class="modal-header">
                                     <h4 class="modal-title">UPDATE KELAS</h4>
-
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-grup mb-3">
@@ -55,25 +49,9 @@
                                         <input type="text" class="form-control" name="nama_kelas"
                                             required="nama_kelas" value="{{ $kelas->nama_kelas }}">
                                     </div>
-
-
-
-                                    <div class="form-grup mb-3">
-                                        <label for="" class="control-label">Semester</label>
-                                        <select name="id_tahun_ajar" class="form-control">
-                                            <option value=""> Silahkan Pilih Tahun Ajar</option>
-                                            @foreach ($list_tahun_ajar as $tahun_ajar)
-                                                <option @if ($tahun_ajar->id == $kelas->id_tahun_ajar) selected @endif
-                                                    value="{{ $tahun_ajar->id }}">
-                                                    {{ $tahun_ajar->tahun_mulai }}/{{ $tahun_ajar->tahun_selesai }}
-                                                    - {{ $tahun_ajar->deskripsi }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
                                 </div>
                                 <div class="modal-footer justify-content-center">
-                                    <button type="button" class="btn btn-outline-light"
+                                    <button type="button" class="btn btn-outline-dark"
                                         data-dismiss="modal">BATAL</button>
                                     <button type="submit" class="btn btn-outline-primary">UPDATE</button>
                                 </div>
@@ -95,30 +73,14 @@
                     <label for="" class="control-label">Nama Kelas</label>
                     <input type="text" class="form-control" name="nama_kelas" placeholder="Masukan Nama Kelas...">
                     @error('nama_kelas')
-                    <p class="text-danger" style="font-size: 12px">* {{ $message }}</p style="font-size: 12px">
+                        <p class="text-danger" style="font-size: 12px">* {{ $message }}</p style="font-size: 12px">
                     @enderror
                 </div>
             </div>
 
-            <div class="modal-body">
-                <div class="form-grup">
-                    <label for="" class="control-label">Tahun Ajar</label>
-                    <select name="id_tahun_ajar" class="form-control">
-                        <option value=""> Silahkan Pilih Tahun Ajar</option>
-                        @foreach ($list_tahun_ajar as $tahun_ajar)
-                            <option value="{{ $tahun_ajar->id }}">
-                                {{ $tahun_ajar->tahun_mulai }}/{{ $tahun_ajar->tahun_selesai }}
-                                - {{ $tahun_ajar->deskripsi }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('id_tahun_ajar')
-                    <p class="text-danger" style="font-size: 12px">* {{ $message }}</p style="font-size: 12px">
-                    @enderror
-                </div>
-            </div>
+
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">BATAL</button>
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">BATAL</button>
                 <button type="submit" class="btn btn-outline-primary">SIMPAN</button>
             </div>
         </div>

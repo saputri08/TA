@@ -15,53 +15,27 @@
                 </thead>
                 <tbody>
                     @php
-                    $no = 1;
+                        $no = 1;
                     @endphp
                     @foreach ($list_anggota as $anggota)
-                    @if($anggota->id_kelas == Auth::guard('guru')->user()->id_kelas)
-                    <tr>
-                        <td class="text-center">{{ $no++ }}</td>
-                        <td class="text-center">{{ $anggota->Kelas->nama_kelas }}</td>
-                        <td class="text-center">
-                            {{ $anggota->Kelas->TahunAjar->tahun_mulai }}/{{ $anggota->Kelas->TahunAjar->tahun_selesai }}
-                        </td>
-                        <td class="text-center">{{ $anggota->Kelas->TahunAjar->deskripsi }}</td>
-                        <td class="text-center" width="90px">
-                            <div class="btn-group">
-                                <x-template.button.show-button url="guru/anggota" id="{{ $anggota->id }}" />
-                            </div>
-                        </td>
-                    </tr>
-                    @endif
+                        <tr>
+                            <td class="text-center">{{ $no++ }}</td>
+                            <td class="text-center">{{ $anggota->Kelas->nama_kelas }}</td>
+                            <td class="text-center">
+                                {{ $anggota->tahunAjar->tahun_mulai }}/{{ $anggota->tahunAjar->tahun_selesai }}
+                            </td>
+                            <td class="text-center">{{ $anggota->tahunAjar->deskripsi }}</td>
+                            <td class="text-center" width="90px">
+                                <div class="btn-group">
+                                    <x-template.button.show-button url="guru/anggota" id="{{ $anggota->id }}" />
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
         <!-- /.card-body -->
     </div>
-    <x-template.modal.modal id="tambah" action="{{ url('admin/anggota') }}">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">TAMBAH DATA</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-grup">
-                    <label for="" class="control-label">PILIH KELAS</label>
-                    <select name="id_kelas" class="form-control">
-                        <option value=""> Silahkan Pilih Kelas</option>
-                        @foreach ($list_kelas as $anggota)
-                        <option value="{{ $anggota->id }}">{{ $anggota->nama_kelas }} -
-                            {{ $anggota->TahunAjar->tahun_mulai }}/{{ $anggota->TahunAjar->tahun_selesai }}
-                            - {{ $anggota->TahunAjar->deskripsi }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">BATAL</button>
-                <button type="submit" class="btn btn-outline-primary">SIMPAN</button>
-            </div>
-        </div>
-    </x-template.modal.modal>
+
 </x-app>

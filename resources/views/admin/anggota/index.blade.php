@@ -1,6 +1,6 @@
 <x-app>
     <!-- Content Header (Page header) -->
-    <h5 class="m-0 font-weight-bold text-dark" style="text-align: center; font-size: 25px"> DATA ANGGOTA</h5>
+    <h5 class="m-0 font-weight-bold text-dark" style="text-align: center; font-size: 25px"> DATA PESERTA KELAS</h5>
     <hr>
     <!-- Main content -->
     <div class="card mt-4">
@@ -23,9 +23,9 @@
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $anggota->Kelas->nama_kelas }}</td>
                             <td class="text-center">
-                                {{ $anggota->Kelas->TahunAjar->tahun_mulai }}/{{ $anggota->Kelas->TahunAjar->tahun_selesai }}
+                                {{ $anggota->tahunAjar->tahun_mulai }}/{{ $anggota->tahunAjar->tahun_selesai }}
                             </td>
-                            <td class="text-center">{{ $anggota->Kelas->TahunAjar->deskripsi }}</td>
+                            <td class="text-center">{{ $anggota->tahunAjar->deskripsi }}</td>
                             <td class="text-center" width="90px">
                                 <div class="btn-group">
                                     <x-template.button.show-button url="admin/anggota" id="{{ $anggota->id }}" />
@@ -55,14 +55,27 @@
                                         <label for="" class="control-label">KELAS</label>
                                         <select name="id_kelas" class="form-control">
                                             <option value=""> Silahkan Pilih Kelas</option>
-                                            @foreach ($list_kelas as $anggota)
-                                                <option value="{{ $anggota->id }}">{{ $anggota->nama_kelas }} -
-                                                    {{ $anggota->TahunAjar->tahun_mulai }}/{{ $anggota->TahunAjar->tahun_selesai }}
-                                                    - {{ $anggota->TahunAjar->deskripsi }}
+                                            @foreach ($list_kelas as $kelas)
+                                                <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}
                                                 </option>
                                             @endforeach
                                         </select>
                                         @error('id_kelas')
+                                            <p class="text-danger" style="font-size: 12px">* {{ $message }}</p
+                                                style="font-size: 12px">
+                                        @enderror
+                                        <br>
+                                        <label for="" class="control-label">TAHUN AJAR</label>
+                                        <select name="id_tahun_ajar" class="form-control">
+                                            <option value=""> Silahkan Pilih Tahun Ajar</option>
+                                            @foreach ($list_tahun_ajar as $tahun)
+                                                <option value="{{ $tahun->id }}">
+                                                    {{ $tahun->tahun_mulai }}/{{ $tahun->tahun_selesai }}
+                                                    - {{ $tahun->deskripsi }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_tahun_ajar')
                                             <p class="text-danger" style="font-size: 12px">* {{ $message }}</p
                                                 style="font-size: 12px">
                                         @enderror
@@ -81,7 +94,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer justify-content-center">
-                                    <button type="button" class="btn btn-outline-light"
+                                    <button type="button" class="btn btn-outline-dark"
                                         data-dismiss="modal">BATAL</button>
                                     <button type="submit" class="btn btn-outline-primary">UPDATE</button>
                                 </div>
@@ -103,14 +116,25 @@
                     <label for="" class="control-label">PILIH KELAS</label>
                     <select name="id_kelas" class="form-control">
                         <option value=""> Silahkan Pilih Kelas</option>
-                        @foreach ($list_kelas as $anggota)
-                            <option value="{{ $anggota->id }}">{{ $anggota->nama_kelas }} -
-                                {{ $anggota->TahunAjar->tahun_mulai }}/{{ $anggota->TahunAjar->tahun_selesai }}
-                                - {{ $anggota->TahunAjar->deskripsi }}
-                            </option>
+                        @foreach ($list_kelas as $kelas)
+                            <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
                         @endforeach
                     </select>
                     @error('id_kelas')
+                        <p class="text-danger" style="font-size: 12px">* {{ $message }}</p style="font-size: 12px">
+                    @enderror
+                    <br>
+                    <label for="" class="control-label">TAHUN AJAR</label>
+                    <select name="id_tahun_ajar" class="form-control">
+                        <option value=""> Silahkan Pilih Tahun Ajar</option>
+                        @foreach ($list_tahun_ajar as $tahun)
+                            <option value="{{ $tahun->id }}">
+                                {{ $tahun->tahun_mulai }}/{{ $tahun->tahun_selesai }}
+                                - {{ $tahun->deskripsi }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('id_tahun_ajar')
                         <p class="text-danger" style="font-size: 12px">* {{ $message }}</p style="font-size: 12px">
                     @enderror
                     <br>
@@ -127,7 +151,7 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">BATAL</button>
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">BATAL</button>
                 <button type="submit" class="btn btn-outline-primary">SIMPAN</button>
             </div>
         </div>

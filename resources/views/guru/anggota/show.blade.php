@@ -11,14 +11,14 @@
                         <dt class="col-4">NAMA KELAS</dt>
                         <dd class="col-8">: {{ $anggota->Kelas->nama_kelas }}</dd>
                         <dt class="col-4">SEMESTER</dt>
-                        <dd class="col-8">: {{ $anggota->Kelas->TahunAjar->deskripsi }}</dd>
+                        <dd class="col-8">: {{ $anggota->tahunAjar->deskripsi }}</dd>
                     </dl>
                 </div>
                 <div class="col-md-5">
                     <dl class="row">
                         <dt class="col-4">TAHUN AJAR</dt>
                         <dd class="col-8">
-                            : {{ $anggota->Kelas->TahunAjar->tahun_mulai }}/{{ $anggota->Kelas->TahunAjar->tahun_selesai }}
+                            : {{ $anggota->tahunAjar->tahun_mulai }}/{{ $anggota->tahunAjar->tahun_selesai }}
                         </dd>
                     </dl>
                 </div>
@@ -40,11 +40,11 @@
                     </thead>
                     <tbody>
                         @foreach ($anggota->grup as $grup)
-                        <tr>
-                            <td style="vertical-align: middle; text-align: center;">{{ $loop->iteration }}</td>
-                            <td>{{ $grup->siswa->nis }} / {{ $grup->siswa->nisn }}</td>
-                            <td>{{ $grup->siswa->nama }}</td>
-                        </tr>
+                            <tr>
+                                <td style="vertical-align: middle; text-align: center;">{{ $loop->iteration }}</td>
+                                <td>{{ $grup->siswa->nis }} / {{ $grup->siswa->nisn }}</td>
+                                <td>{{ $grup->siswa->nama }}</td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
