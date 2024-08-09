@@ -295,13 +295,10 @@ class NilaiController extends Controller
         return view('siswa.nilai.detail', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas'));
     }
 
-    public function cetakData($id_siswa, $id_kelas)
+    public function cetakData($id_siswa, $id_kelas, $deskripsi)
     {
         // Mengambil data siswa berdasarkan ID
         $siswa = Siswa::findOrFail($id_siswa);
-
-        // Mengambil data kelas berdasarkan ID
-        $kelas = Kelas::with('tahunAjar')->findOrFail($id_kelas);
 
         // Mengambil data guru berdasarkan ID
         $guru = Guru::where('id_kelas', $id_kelas)->first();
@@ -312,32 +309,53 @@ class NilaiController extends Controller
         // Mengambil data kelas berdasarkan ID
         $kelas = Kelas::findOrFail($id_kelas);
 
+        $semester = $deskripsi;
+
+        // Mengambil nilai berdasarkan ID siswa, ID kelas, dan semester
         $nilai = Nilai::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
             ->with('mapel', 'kelas')
-            ->get(); // Menggunakan get() untuk mendapatkan kumpulan data
+            ->get();
 
-        // Mengambil nilai tambahan berdasarkan ID siswa dan ID kelas
+        // Mengambil nilai tambahan berdasarkan ID siswa, ID kelas, dan semester
         $nilai_tambahan = NilaiTambahan::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
             ->first();
 
-        // Mengambil data ekskul berdasarkan ID siswa dan ID kelas
+        // Mengambil data ekskul berdasarkan ID siswa, ID kelas, dan semester
         $ekskul = Ekstrakurikuler::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
             ->get();
 
-        // Mengambil data prestasi berdasarkan ID siswa dan ID kelas
+        // Mengambil data prestasi berdasarkan ID siswa, ID kelas, dan semester
         $prestasi = Prestasi::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
             ->get();
 
-        // Mengambil data anggota kelas berdasarkan id_kelas
+
+        // Mengambil data anggota kelas berdasarkan id_kelas dan semester
         $anggota = Anggota::where('id_kelas', $id_kelas)
-            ->with('kelas.tahunAjar')
+            ->whereHas('tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            })
+            ->with('kelas', 'tahunAjar') // Memastikan tahunAjar juga diambil
             ->get();
 
-        return view('siswa.nilai.cetak-nilai', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas', 'guru', 'kepsek'));
+        $list_mapel = Mapel::all();
+
+        return view('siswa.nilai.cetak-nilai', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas', 'guru', 'kepsek', 'semester'));
     }
 
     function generateQrcode($output_file, $data)

@@ -33,12 +33,12 @@
                             <td class="text-center">{{ $no++ }}</td>
                             <td class="text-center">{{ $nilai->anggota->Kelas->nama_kelas }}</td>
                             <td class="text-center">
-                                {{ $nilai->anggota->Kelas->TahunAjar->tahun_mulai }}/{{ $nilai->anggota->Kelas->TahunAjar->tahun_selesai }}
+                                {{ $nilai->anggota->tahunAjar->tahun_mulai }}/{{ $nilai->anggota->tahunAjar->tahun_selesai }}
                             </td>
-                            <td class="text-center">{{ $nilai->anggota->Kelas->TahunAjar->deskripsi }}</td>
+                            <td class="text-center">{{ $nilai->anggota->tahunAjar->deskripsi }}</td>
                             <td class="text-center" width="90px">
                                 <div class="btn-group">
-                                    <a href="{{ url('siswa/nilai/' . $nilai->siswa->id . '/' . $nilai->anggota->id_kelas) }}" class="btn btn-success" target="_blank"><i class="fa fa-print"></i> Cetak Data</a>
+                                    <a href="{{ url('siswa/nilai/' . $nilai->siswa->id . '/' . $nilai->anggota->id_kelas . '/' . $nilai->anggota->tahunAjar->deskripsi) }}" class="btn btn-success" target="_blank"><i class="fa fa-print"></i> Cetak Data</a>
                                 </div>
                             </td>
                         </tr>

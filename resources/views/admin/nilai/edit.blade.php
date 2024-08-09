@@ -1,8 +1,8 @@
 <x-app>
-    <h5 class="m-0 font-weight-bold text-dark" style="text-align: center; font-size: 25px">EDIT DETAIL NILAI MAN 2 KETAPANG</h5>
+    <h5 class="m-0 font-weight-bold text-dark" style="text-align: center; font-size: 25px">KELOLA NILAI MAN 2 KETAPANG</h5>
     <hr>
     <button onclick="history.go(-1);" class="btn btn-primary btn-xs"><span class="fa fa-arrow-left"></span> Kembali</button>
-    <form action="{{ url('admin/nilai', $siswa->id) }}" method="post">
+    <form action="{{ url('admin/nilai', [$siswa->id, $kelas->id, $semester]) }}" method="post">
         @csrf
         @method('PUT')
         <div class="card">
@@ -26,7 +26,7 @@
                                     </tr>
                                     <tr>
                                         <td style="font-weight: bold;">SEMESTER</td>
-                                        <td>{{ $kelas->tahunAjar->deskripsi }}</td>
+                                        <td>{{ $semester }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -415,7 +415,7 @@
                             <!-- END TANGGAPAN ORANG TUA -->
                             <!-- KETERANGAN LULUS -->
                             <hr>
-                            @if($kelas->tahunAjar->deskripsi == 'Genap')
+                            @if($semester == 'Genap')
                             <div class="col-md-12">
                                 <label for="">KETERANGAN LULUS:
                                 </label>

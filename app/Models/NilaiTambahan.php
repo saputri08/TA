@@ -34,6 +34,11 @@ class NilaiTambahan extends ModelAuthenticate
         return $this->belongsTo(Siswa::class, 'id_siswa');
     }
 
+    function anggota()
+    {
+        return $this->belongsTo(Anggota::class, 'id_anggota');
+    }
+
     function Kelas()
     {
         return $this->belongsTo(Kelas::class, 'id_kelas');
@@ -43,8 +48,18 @@ class NilaiTambahan extends ModelAuthenticate
     public function getFormattedCreatedAtAttribute()
     {
         $bulanIndonesia = [
-            1 => 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            1 => 'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
         ];
 
         $date = Carbon::parse($this->attributes['created_at']);

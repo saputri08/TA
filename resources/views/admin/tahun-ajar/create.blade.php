@@ -27,7 +27,11 @@
                     </div>
                     <div class="col-md-4">
                         <label for="" class="control-label mt-3">Deskripsi</label>
-                        <input type="text" name="deskripsi" class="form-control mb-3" placeholder="Masukan Nama">
+                        <select name="deskripsi" class="form-control mb-3">
+                            <option value="">Pilih Data</option>
+                            <option value="Ganjil">Ganjil</option>
+                            <option value="Genap">Genap</option>
+                        </select>
                         @error('deskripsi')
                         <p class="text-danger" style="font-size: 12px">* {{ $message }}</p style="font-size: 12px">
                         @enderror

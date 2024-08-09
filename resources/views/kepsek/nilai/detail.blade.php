@@ -23,7 +23,7 @@
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bold;">SEMESTER</td>
-                                    <td>{{ $kelas->tahunAjar->deskripsi }}</td>
+                                    <td>{{ $semester }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -298,7 +298,7 @@
                         </div>
                         <!-- END TANGGAPAN ORANG TUA -->
                         <!-- KETERANGAN LULUS -->
-                        @if($kelas->tahunAjar->deskripsi == 'Genap')
+                        @if($semester == 'Genap')
                         <hr>
                         <div class="col-md-12">
                             <label for="">KETERANGAN LULUS: <span>{{ $nilai_tambahan->keterangan_lulus }}</span></label>

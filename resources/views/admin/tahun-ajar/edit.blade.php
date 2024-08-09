@@ -24,8 +24,11 @@
                     </div>
                     <div class="col-md-4">
                         <label for="" class="control-label mt-3">Deskripsi</label>
-                        <input type="text" name="deskripsi" class="form-control mb-3" value="{{ $tahun_ajar->deskripsi }}">
-
+                        <select name="deskripsi" class="form-control mb-3">
+                            <option value="{{ $tahun_ajar->deskripsi }}">{{ $tahun_ajar->deskripsi }}</option>
+                            <option value="Ganjil">Ganjil</option>
+                            <option value="Genap">Genap</option>
+                        </select>
                     </div>
 
                     <div class="col-md-12">

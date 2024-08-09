@@ -19,8 +19,8 @@
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        <a href="{{ url('kepsek/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas) }}/detail" class="btn btn-dark"><span class="fa fa-info"></span> Detail Nilai</a>
-                                        <a href="{{ url('kepsek/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas) }}" class="btn btn-success" target="_blank"><i class="fa fa-print"></i> Cetak Data</a>
+                                        <a href="{{ url('kepsek/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas . '/' . $anggota->anggota->tahunAjar->deskripsi ) }}/detail" class="btn btn-dark"><span class="fa fa-info"></span> Detail Nilai</a>
+                                        <a href="{{ url('kepsek/nilai/' . $anggota->siswa->id . '/' . $anggota->anggota->id_kelas . '/' . $anggota->anggota->tahunAjar->deskripsi ) }}" class="btn btn-success" target="_blank"><i class="fa fa-print"></i> Cetak Data</a>
                                     </div>
                                 </td>
                                 <td class="text-center">{{ $anggota->siswa->nis }}</td>

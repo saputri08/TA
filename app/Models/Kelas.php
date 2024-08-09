@@ -16,11 +16,6 @@ class Kelas extends ModelsModel
         return $this->belongsTo(Guru::class, 'id', 'id_kelas');
     }
 
-    public function TahunAjar()
-    {
-        return $this->belongsTo(TahunAjar::class, 'id_tahun_ajar');
-    }
-
     public function anggota()
     {
         return $this->hasMany(Anggota::class, 'id_kelas', 'id');

@@ -22,9 +22,9 @@
                         <td class="text-center">{{ $no++ }}</td>
                         <td class="text-center">{{ $anggota->Kelas->nama_kelas }}</td>
                         <td class="text-center">
-                            {{ $anggota->Kelas->TahunAjar->tahun_mulai }}/{{ $anggota->Kelas->TahunAjar->tahun_selesai }}
+                            {{ $anggota->tahunAjar->tahun_mulai }}/{{ $anggota->tahunAjar->tahun_selesai }}
                         </td>
-                        <td class="text-center">{{ $anggota->Kelas->TahunAjar->deskripsi }}</td>
+                        <td class="text-center">{{ $anggota->tahunAjar->deskripsi }}</td>
                         <td class="text-center" width="90px">
                             <div class="btn-group">
                                 <a href="{{ url('kepsek/nilai', $anggota->id) }}" class="btn btn-dark" style="font-weight: bold;">Detail</a>

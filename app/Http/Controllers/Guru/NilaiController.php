@@ -63,57 +63,59 @@ class NilaiController extends Controller
         $siswa = Siswa::findOrFail($id_siswa);
 
         // Mengambil data kelas berdasarkan ID
-        $kelas = Kelas::with('tahunAjar')->findOrFail($id_kelas);
+        $kelas = Kelas::findOrFail($id_kelas);
 
-        // Ambil semester berdasarkan deskripsi yang dipilih
+        // Mengambil data kelas berdasarkan ID
+        $kelas = Kelas::findOrFail($id_kelas);
+
         $semester = $deskripsi;
 
-        // Mengambil nilai berdasarkan ID siswa, ID kelas, dan semester yang dipilih
+        // Mengambil nilai berdasarkan ID siswa, ID kelas, dan semester
         $nilai = Nilai::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
             ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
                 $query->where('deskripsi', $semester);
-            })
+            }) // Filter berdasarkan semester
             ->with('mapel', 'kelas')
             ->get();
 
-        // Mengambil nilai tambahan berdasarkan ID siswa, ID kelas, dan semester yang dipilih
+        // Mengambil nilai tambahan berdasarkan ID siswa, ID kelas, dan semester
         $nilai_tambahan = NilaiTambahan::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
             ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
                 $query->where('deskripsi', $semester);
-            })
+            }) // Filter berdasarkan semester
             ->first();
 
-        // Mengambil data ekskul berdasarkan ID siswa, ID kelas, dan semester yang dipilih
+        // Mengambil data ekskul berdasarkan ID siswa, ID kelas, dan semester
         $ekskul = Ekstrakurikuler::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
             ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
                 $query->where('deskripsi', $semester);
-            })
+            }) // Filter berdasarkan semester
             ->get();
 
-        // Mengambil data prestasi berdasarkan ID siswa, ID kelas, dan semester yang dipilih
+        // Mengambil data prestasi berdasarkan ID siswa, ID kelas, dan semester
         $prestasi = Prestasi::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
             ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
                 $query->where('deskripsi', $semester);
-            })
+            }) // Filter berdasarkan semester
             ->get();
 
-        // Mengambil data anggota kelas berdasarkan id_kelas dan semester yang dipilih
+
+        // Mengambil data anggota kelas berdasarkan id_kelas dan semester
         $anggota = Anggota::where('id_kelas', $id_kelas)
-            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+            ->whereHas('tahunAjar', function ($query) use ($semester) {
                 $query->where('deskripsi', $semester);
             })
-            ->with('anggota.tahunAjar')
+            ->with('kelas', 'tahunAjar') // Memastikan tahunAjar juga diambil
             ->get();
 
         $list_mapel = Mapel::all();
 
         return view('guru.nilai.edit', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas', 'list_mapel', 'semester'));
     }
-
 
     public function store(Request $request)
     {
@@ -256,37 +258,86 @@ class NilaiController extends Controller
         return redirect('guru/nilai/' . $id_anggota)->with('success', 'Data Berhasil Ditambahkan');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_siswa, $id_kelas, $semester)
     {
-        $siswa = Siswa::find($id);
+        // Mengambil data siswa berdasarkan ID
+        $siswa = Siswa::findOrFail($id_siswa);
 
-        // Update nilai tambahan
-        $nilai_tambahan = NilaiTambahan::where('id_siswa', $siswa->id)->first();
-        $nilai_tambahan->update([
-            'spiritual_sikap' => $request->spiritual_sikap,
-            'spiritual_sikap_keterangan' => $request->spiritual_sikap_keterangan,
-            'sosial_sikap' => $request->sosial_sikap,
-            'sosial_sikap_keterangan' => $request->sosial_sikap_keterangan,
-            'sakit' => $request->sakit,
-            'izin' => $request->izin,
-            'tanpaketerangan' => $request->tanpaketerangan,
-            'catatan_wali' => $request->catatan_wali,
-            'tanggapan_ortu' => $request->tanggapan_ortu,
-            'keterangan_lulus' => $request->keterangan_lulus,
-        ]);
+        // Update nilai tambahan jika data tersedia di request
+        $nilai_tambahan = NilaiTambahan::where('id_siswa', $id_siswa)
+            ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
+            ->first();
 
-        // Update nilai
-        foreach ($request->nilai_pengetahuan as $id => $nilai) {
-            $nilaiItem = Nilai::find($id);
-            $nilaiItem->update([
-                'nilai_pengetahuan' => $request->nilai_pengetahuan[$id],
-                'kkm_pengetahuan' => $request->kkm_pengetahuan[$id],
-                'predikat_pengetahuan' => $request->predikat_pengetahuan[$id],
-                'nilai_keterampilan' => $request->nilai_keterampilan[$id],
-                'predikat_keterampilan' => $request->predikat_keterampilan[$id],
-                'keterangan_pengetahuan' => $request->keterangan_pengetahuan[$id],
-                'keterangan_keterampilan' => $request->keterangan_keterampilan[$id],
-            ]);
+        if ($nilai_tambahan) {
+            // Array untuk menyimpan data yang akan diperbarui
+            $dataToUpdate = [];
+
+            // Cek setiap field yang ada di request
+            if ($request->has('spiritual_sikap')) {
+                $dataToUpdate['spiritual_sikap'] = $request->spiritual_sikap;
+            }
+            if ($request->has('spiritual_sikap_keterangan')) {
+                $dataToUpdate['spiritual_sikap_keterangan'] = $request->spiritual_sikap_keterangan;
+            }
+            if ($request->has('sosial_sikap')) {
+                $dataToUpdate['sosial_sikap'] = $request->sosial_sikap;
+            }
+            if ($request->has('sosial_sikap_keterangan')) {
+                $dataToUpdate['sosial_sikap_keterangan'] = $request->sosial_sikap_keterangan;
+            }
+            if ($request->has('sakit')) {
+                $dataToUpdate['sakit'] = $request->sakit;
+            }
+            if ($request->has('izin')) {
+                $dataToUpdate['izin'] = $request->izin;
+            }
+            if ($request->has('tanpaketerangan')) {
+                $dataToUpdate['tanpaketerangan'] = $request->tanpaketerangan;
+            }
+            if ($request->has('catatan_wali')) {
+                $dataToUpdate['catatan_wali'] = $request->catatan_wali;
+            }
+            if ($request->has('tanggapan_ortu')) {
+                $dataToUpdate['tanggapan_ortu'] = $request->tanggapan_ortu;
+            }
+            if ($request->has('keterangan_lulus')) {
+                $dataToUpdate['keterangan_lulus'] = $request->keterangan_lulus;
+            }
+
+            // Update hanya jika ada data yang akan diperbarui
+            if (!empty($dataToUpdate)) {
+                $nilai_tambahan->update($dataToUpdate);
+            }
+        } else {
+            // Tangani kasus jika $nilai_tambahan tidak ditemukan
+            dd('Data untuk update tidak tersedia. Pastikan ID siswa dan kelas benar serta semester valid.');
+        }
+
+        // Update nilai jika data tersedia di request
+        if ($request->has('nilai_pengetahuan')) {
+            foreach ($request->nilai_pengetahuan as $id => $nilai) {
+                $nilaiItem = Nilai::where('id_siswa', $siswa->id)
+                    ->where('id_kelas', $id_kelas)
+                    ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                        $query->where('deskripsi', $semester);
+                    })
+                    ->find($id);
+
+                if ($nilaiItem) {
+                    $nilaiItem->update([
+                        'nilai_pengetahuan' => $request->nilai_pengetahuan[$id],
+                        'kkm_pengetahuan' => $request->kkm_pengetahuan[$id],
+                        'predikat_pengetahuan' => $request->predikat_pengetahuan[$id],
+                        'nilai_keterampilan' => $request->nilai_keterampilan[$id],
+                        'predikat_keterampilan' => $request->predikat_keterampilan[$id],
+                        'keterangan_pengetahuan' => $request->keterangan_pengetahuan[$id],
+                        'keterangan_keterampilan' => $request->keterangan_keterampilan[$id],
+                    ]);
+                }
+            }
         }
 
         // Update ekskul
@@ -295,19 +346,27 @@ class NilaiController extends Controller
                 if ($id == 'new') {
                     Ekstrakurikuler::create([
                         'id_anggota' => $request->id_anggota,
-                        'id_kelas' => $request->id_kelas,
+                        'id_kelas' => $id_kelas,
                         'id_siswa' => $siswa->id,
                         'ekskul_kegiatan' => $ekskul_kegiatan,
                         'ekskul_nilai' => $request->ekskul_nilai[$id],
                         'ekskul_keterangan' => $request->ekskul_keterangan[$id],
                     ]);
                 } else {
-                    $ekskul = Ekstrakurikuler::find($id);
-                    $ekskul->update([
-                        'ekskul_kegiatan' => $ekskul_kegiatan,
-                        'ekskul_nilai' => $request->ekskul_nilai[$id],
-                        'ekskul_keterangan' => $request->ekskul_keterangan[$id],
-                    ]);
+                    $ekskul = Ekstrakurikuler::where('id_siswa', $siswa->id)
+                        ->where('id_kelas', $id_kelas)
+                        ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                            $query->where('deskripsi', $semester);
+                        })
+                        ->find($id);
+
+                    if ($ekskul) {
+                        $ekskul->update([
+                            'ekskul_kegiatan' => $ekskul_kegiatan,
+                            'ekskul_nilai' => $request->ekskul_nilai[$id],
+                            'ekskul_keterangan' => $request->ekskul_keterangan[$id],
+                        ]);
+                    }
                 }
             }
         }
@@ -318,17 +377,25 @@ class NilaiController extends Controller
                 if ($id == 'new') {
                     Prestasi::create([
                         'id_anggota' => $request->id_anggota,
-                        'id_kelas' => $request->id_kelas,
+                        'id_kelas' => $id_kelas,
                         'id_siswa' => $siswa->id,
                         'prestasi' => $prestasi,
                         'keterangan' => $request->keterangan_prestasi[$id],
                     ]);
                 } else {
-                    $prestasiItem = Prestasi::find($id);
-                    $prestasiItem->update([
-                        'prestasi' => $prestasi,
-                        'keterangan' => $request->keterangan_prestasi[$id],
-                    ]);
+                    $prestasiItem = Prestasi::where('id_siswa', $siswa->id)
+                        ->where('id_kelas', $id_kelas)
+                        ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                            $query->where('deskripsi', $semester);
+                        })
+                        ->find($id);
+
+                    if ($prestasiItem) {
+                        $prestasiItem->update([
+                            'prestasi' => $prestasi,
+                            'keterangan' => $request->keterangan_prestasi[$id],
+                        ]);
+                    }
                 }
             }
         }
@@ -338,6 +405,7 @@ class NilaiController extends Controller
         return redirect('guru/nilai/' . $id_anggota)->with('success', 'Data berhasil diperbarui.');
     }
 
+
     public function nilai($anggota)
     {
         $anggota = AnggotaGrup::find($anggota);
@@ -346,52 +414,67 @@ class NilaiController extends Controller
         return view('guru.nilai.nilai', compact('anggota', 'list_mapel'));
     }
 
-    public function nilaiDetail($id_siswa, $id_kelas)
+    public function nilaiDetail($id_siswa, $id_kelas, $deskripsi)
     {
         // Mengambil data siswa berdasarkan ID
         $siswa = Siswa::findOrFail($id_siswa);
-
-        // Mengambil data kelas berdasarkan ID
-        $kelas = Kelas::with('tahunAjar')->findOrFail($id_kelas);
 
         // Mengambil data kelas berdasarkan ID
         $kelas = Kelas::findOrFail($id_kelas);
 
+        $semester = $deskripsi;
+
+        // Mengambil nilai berdasarkan ID siswa, ID kelas, dan semester
         $nilai = Nilai::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
             ->with('mapel', 'kelas')
-            ->get(); // Menggunakan get() untuk mendapatkan kumpulan data
+            ->get();
 
-        // Mengambil nilai tambahan berdasarkan ID siswa dan ID kelas
+        // Mengambil nilai tambahan berdasarkan ID siswa, ID kelas, dan semester
         $nilai_tambahan = NilaiTambahan::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
             ->first();
 
-        // Mengambil data ekskul berdasarkan ID siswa dan ID kelas
+        // Mengambil data ekskul berdasarkan ID siswa, ID kelas, dan semester
         $ekskul = Ekstrakurikuler::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
             ->get();
 
-        // Mengambil data prestasi berdasarkan ID siswa dan ID kelas
+        // Mengambil data prestasi berdasarkan ID siswa, ID kelas, dan semester
         $prestasi = Prestasi::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
             ->get();
 
-        // Mengambil data anggota kelas berdasarkan id_kelas
+
+        // Mengambil data anggota kelas berdasarkan id_kelas dan semester
         $anggota = Anggota::where('id_kelas', $id_kelas)
-            ->with('anggota.tahunAjar')
+            ->whereHas('tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            })
+            ->with('kelas', 'tahunAjar') // Memastikan tahunAjar juga diambil
             ->get();
 
-        return view('guru.nilai.detail', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas'));
+        $list_mapel = Mapel::all();
+
+        return view('guru.nilai.detail', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas', 'semester'));
     }
 
-    public function cetakData($id_siswa, $id_kelas)
+    public function cetakData($id_siswa, $id_kelas, $deskripsi)
     {
         // Mengambil data siswa berdasarkan ID
         $siswa = Siswa::findOrFail($id_siswa);
-
-        // Mengambil data kelas berdasarkan ID
-        $kelas = Kelas::with('tahunAjar')->findOrFail($id_kelas);
 
         // Mengambil data guru berdasarkan ID
         $guru = Guru::where('id_kelas', $id_kelas)->first();
@@ -402,32 +485,53 @@ class NilaiController extends Controller
         // Mengambil data kelas berdasarkan ID
         $kelas = Kelas::findOrFail($id_kelas);
 
+        $semester = $deskripsi;
+
+        // Mengambil nilai berdasarkan ID siswa, ID kelas, dan semester
         $nilai = Nilai::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
             ->with('mapel', 'kelas')
-            ->get(); // Menggunakan get() untuk mendapatkan kumpulan data
+            ->get();
 
-        // Mengambil nilai tambahan berdasarkan ID siswa dan ID kelas
+        // Mengambil nilai tambahan berdasarkan ID siswa, ID kelas, dan semester
         $nilai_tambahan = NilaiTambahan::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
             ->first();
 
-        // Mengambil data ekskul berdasarkan ID siswa dan ID kelas
+        // Mengambil data ekskul berdasarkan ID siswa, ID kelas, dan semester
         $ekskul = Ekstrakurikuler::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
             ->get();
 
-        // Mengambil data prestasi berdasarkan ID siswa dan ID kelas
+        // Mengambil data prestasi berdasarkan ID siswa, ID kelas, dan semester
         $prestasi = Prestasi::where('id_siswa', $id_siswa)
             ->where('id_kelas', $id_kelas)
+            ->whereHas('anggota.tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            }) // Filter berdasarkan semester
             ->get();
 
-        // Mengambil data anggota kelas berdasarkan id_kelas
+
+        // Mengambil data anggota kelas berdasarkan id_kelas dan semester
         $anggota = Anggota::where('id_kelas', $id_kelas)
-            ->with('anggota.tahunAjar')
+            ->whereHas('tahunAjar', function ($query) use ($semester) {
+                $query->where('deskripsi', $semester);
+            })
+            ->with('kelas', 'tahunAjar') // Memastikan tahunAjar juga diambil
             ->get();
 
-        return view('guru.nilai.cetak-nilai', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas', 'guru', 'kepsek'));
+        $list_mapel = Mapel::all();
+
+        return view('guru.nilai.cetak-nilai', compact('nilai', 'nilai_tambahan', 'siswa', 'ekskul', 'prestasi', 'anggota', 'kelas', 'guru', 'kepsek', 'semester'));
     }
 
     function generateQrcode($output_file, $data)

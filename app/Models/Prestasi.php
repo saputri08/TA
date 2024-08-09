@@ -25,6 +25,11 @@ class Prestasi extends ModelAuthenticate
         return $this->belongsTo(Siswa::class, 'id_siswa');
     }
 
+    function anggota()
+    {
+        return $this->belongsTo(Anggota::class, 'id_anggota');
+    }
+
     function Kelas()
     {
         return $this->belongsTo(Kelas::class, 'id_kelas');

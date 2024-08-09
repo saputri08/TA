@@ -60,9 +60,10 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('anggota/delete-role/{id}', [AnggotaController::class, 'deleteRole']);
 
     Route::get('nilai/{anggota}/nilai', [NilaiController::class, 'nilai']);
-    Route::get('nilai/{id_siswa}/{id_kelas}/detail', [NilaiController::class, 'nilaiDetail']);
-    Route::get('nilai/{id_siswa}/{id_kelas}/edit', [NilaiController::class, 'edit']);
-    Route::get('nilai/{id_siswa}/{id_kelas}', [NilaiController::class, 'cetakData']);
+    Route::put('nilai/{id_siswa}/{id_kelas}/{semester}', [NilaiController::class, 'update']);
+    Route::get('nilai/{id_siswa}/{id_kelas}/{deskripsi}/detail', [NilaiController::class, 'nilaiDetail']);
+    Route::get('nilai/{id_siswa}/{id_kelas}/{deskripsi}/edit', [NilaiController::class, 'edit']);
+    Route::get('nilai/{id_siswa}/{id_kelas}/{deskripsi}', [NilaiController::class, 'cetakData']);
 });
 
 Route::prefix('guru')->middleware('auth:guru')->group(function () {
@@ -73,9 +74,10 @@ Route::prefix('guru')->middleware('auth:guru')->group(function () {
     Route::post('anggota/add-role', [GuruAnggotaController::class, 'addRole']);
     Route::get('anggota/delete-role/{role}', [GuruAnggotaController::class, 'deleteRole']);
     Route::get('nilai/{anggota}/nilai', [GuruNilaiController::class, 'nilai']);
-    Route::get('nilai/{id_siswa}/{id_kelas}/detail', [GuruNilaiController::class, 'nilaiDetail']);
+    Route::put('nilai/{id_siswa}/{id_kelas}/{semester}', [GuruNilaiController::class, 'update']);
+    Route::get('nilai/{id_siswa}/{id_kelas}/{deskripsi}/detail', [GuruNilaiController::class, 'nilaiDetail']);
     Route::get('nilai/{id_siswa}/{id_kelas}/{deskripsi}/edit', [GuruNilaiController::class, 'edit']);
-    Route::get('nilai/{id_siswa}/{id_kelas}', [GuruNilaiController::class, 'cetakData']);
+    Route::get('nilai/{id_siswa}/{id_kelas}/{deskripsi}', [GuruNilaiController::class, 'cetakData']);
     Route::post('pengumuman/detail', [PengumumanController::class, 'pengumumanDetail']);
 });
 
@@ -84,8 +86,8 @@ Route::prefix('kepsek')->middleware('auth:kepsek')->group(function () {
     Route::resource('nilai', KepsekNilaiController::class);
     Route::resource('profile', KepsekProfileController::class);
     Route::resource('anggota', KepsekAnggotaController::class);
-    Route::get('nilai/{id_siswa}/{id_kelas}/detail', [KepsekNilaiController::class, 'nilaiDetail']);
-    Route::get('nilai/{id_siswa}/{id_kelas}', [KepsekNilaiController::class, 'cetakData']);
+    Route::get('nilai/{id_siswa}/{id_kelas}/{deskripsi}/detail', [KepsekNilaiController::class, 'nilaiDetail']);
+    Route::get('nilai/{id_siswa}/{id_kelas}/{deskripsi}', [KepsekNilaiController::class, 'cetakData']);
     Route::resource('pengumuman', PengumumanController::class);
 });
 
@@ -93,6 +95,6 @@ Route::prefix('siswa')->middleware('auth:siswa')->group(function () {
     Route::resource('dashboard', SiswaDashboardController::class);
     Route::resource('nilai', SiswaNilaiController::class);
     Route::resource('profile', ProfileController::class);
-    Route::get('nilai/{id_siswa}/{id_kelas}/detail', [SiswaNilaiController::class, 'nilaiDetail']);
-    Route::get('nilai/{id_siswa}/{id_kelas}', [SiswaNilaiController::class, 'cetakData']);
+    Route::get('nilai/{id_siswa}/{id_kelas}/{deskripsi}/detail', [SiswaNilaiController::class, 'nilaiDetail']);
+    Route::get('nilai/{id_siswa}/{id_kelas}/{deskripsi}', [SiswaNilaiController::class, 'cetakData']);
 });

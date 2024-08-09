@@ -1,5 +1,5 @@
 <x-app>
-    <h5 class="m-0 font-weight-bold text-dark" style="text-align:center; font-size: 25px"> DETAIL SISWA
+    <h5 class="m-0 font-weight-bold text-dark" style="text-align:center; font-size: 25px"> DETAIL PESERTA KELAS
     </h5>
     <hr>
     <x-template.button.back-button url="admin/anggota" />
@@ -30,7 +30,7 @@
     </div>
     <div class="card">
         <div class="card-header" style="padding: 6px; vertical-align: middle; text-align: center;">
-            <h5 style="vertical-align: middle; font-weight:bold;">TAMBAH SISWA KE ANGGOTA</h5>
+            <h5 style="vertical-align: middle; font-weight:bold;">TAMBAH SISWA KE KELAS</h5>
         </div>
         <div class="card-body">
             <div class="row">
@@ -38,9 +38,9 @@
                     <form action="{{ url('admin/anggota/add-role') }}" method="post">
                         @csrf
                         @foreach ($list_mapel as $mapel)
-                            @if ($mapel->id_kelas == $anggota->kelas->id)
-                                <input type="text" name="mapel[{{ $mapel->id }}]" value="{{ $mapel->id }}" hidden>
-                            @endif
+                        @if ($mapel->id_kelas == $anggota->kelas->id)
+                        <input type="text" name="mapel[{{ $mapel->id }}]" value="{{ $mapel->id }}" hidden>
+                        @endif
                         @endforeach
                         <input type="hidden" name="id_kelas" value="{{ $anggota->Kelas->id }}">
                         <input type="hidden" name="semester" value="{{ $anggota->tahunAjar->deskripsi }}">
@@ -53,7 +53,7 @@
                             <select class="select2bs4 form-control" name="id_siswa" style="width: 100%;">
                                 <option value="">Pilih Nama Siswa</option>
                                 @foreach ($siswa as $s)
-                                    <option value="{{ $s->id }}">{{ $s->nama }}</option>
+                                <option value="{{ $s->id }}">{{ $s->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -75,15 +75,15 @@
                         </thead>
                         <tbody>
                             @foreach ($anggota->grup as $grup)
-                                <tr>
-                                    <td style="vertical-align: middle; text-align: center;">{{ $loop->iteration }}</td>
-                                    <td>
-                                        <a href="{{ url('admin/anggota/delete-role', $grup->id) }}"
-                                            class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</a>
-                                    </td>
-                                    <td>{{ $grup->siswa->nis }} / {{ $grup->siswa->nisn }}</td>
-                                    <td>{{ $grup->siswa->nama }}</td>
-                                </tr>
+                            <tr>
+                                <td style="vertical-align: middle; text-align: center;">{{ $loop->iteration }}</td>
+                                <td class="text-center">
+                                    <a href="{{ url('admin/anggota/delete-role', $grup->id) }}"
+                                        class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</a>
+                                </td>
+                                <td class="text-center">{{ $grup->siswa->nis }} / {{ $grup->siswa->nisn }}</td>
+                                <td class="text-center">{{ $grup->siswa->nama }}</td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -92,18 +92,18 @@
         </div>
     </div>
     @push('js')
-        {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-        <script>
-            $(document).ready(function() {
-                $('#id_siswa').change(function() {
-                    var selectedOption = $(this).find('option:selected');
-                    var namaSiswa = selectedOption.data('nama_siswa');
-                    var nisn = selectedOption.data('nisn');
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <script>
+        $(document).ready(function() {
+            $('#id_siswa').change(function() {
+                var selectedOption = $(this).find('option:selected');
+                var namaSiswa = selectedOption.data('nama_siswa');
+                var nisn = selectedOption.data('nisn');
 
-                    $('#nama_siswa').val(namaSiswa);
-                    $('#nisn').val(nisn);
-                });
+                $('#nama_siswa').val(namaSiswa);
+                $('#nisn').val(nisn);
             });
-        </script>
+        });
+    </script>
     @endpush
 </x-app>
