@@ -9,5 +9,5 @@
 <script>
     setTimeout(() => {
         $('.alert').hide('slow')
-    }, 2000);
+    }, 8000);
 </script>

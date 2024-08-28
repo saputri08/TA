@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-md-6">
                             <dt class="font-weight-bold">KELAS</dt>
-                            <dd>{{ $user->kelas->nama_kelas }}</dd>
+                            {{-- <dd>{{ $user->kelas->nama_kelas }}</dd> --}}
                         </div>
                         <div class="col-md-6">
                             <dt class="font-weight-bold">TEMPAT TANGGAL LAHIR</dt>

@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-md-6">
                             <dt class="font-weight-bold">KELAS</dt>
-                            <dd>{{ $guru->kelas->nama_kelas }}</dd>
+                            {{-- <dd>{{ $guru->kelas->nama_kelas }}</dd> --}}
                         </div>
                         <div class="col-md-6">
                             <dt class="font-weight-bold">TEMPAT TANGGAL LAHIR</dt>

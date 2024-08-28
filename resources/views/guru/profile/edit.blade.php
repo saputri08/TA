@@ -47,8 +47,8 @@
                                 <div class="form-group">
                                     <label for="" class="control-label mt-3">Kelas</label>
                                     <select name="id_kelas" id="" class="form-control mb-3">
-                                        <option value="{{ $user->kelas->nama_kelas }}">
-                                            {{ $user->kelas->nama_kelas }}
+                                        {{-- <option value="{{ $user->kelas->nama_kelas }}">
+                                            {{ $user->kelas->nama_kelas }} --}}
                                         </option>
                                         @foreach ($list_kelas as $kelas)
                                         <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}
